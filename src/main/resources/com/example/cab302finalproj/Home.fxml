@@ -1,10 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFD500;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Home">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Home">
    <children>
       <Text layoutX="269.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is home" />
+      <BorderPane layoutX="1.0" layoutY="2.0">
+         <left>
+            <fx:include source="Sidebar.fxml" />
+         </left>
+         <center>
+            <StackPane fx:id="contentArea" />
+         </center>
+      </BorderPane>
+      <Pane layoutX="175.0" layoutY="40.0" prefHeight="87.0" prefWidth="389.0" style="-fx-background-color: FDC500; -fx-background-radius: 3;">
+         <children>
+            <Pane layoutX="11.0" layoutY="10.0" prefHeight="68.0" prefWidth="366.0" style="-fx-background-color: FFD500; -fx-background-radius: 5;">
+               <children>
+                  <Text layoutX="76.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Upload any file" textAlignment="CENTER" wrappingWidth="213.08203125">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="175.0" layoutY="157.0" prefHeight="192.0" prefWidth="389.0" style="-fx-background-color: FDC500; -fx-background-radius: 3;">
+         <children>
+            <Pane layoutX="197.0" layoutY="19.0" prefHeight="45.0" prefWidth="173.0" style="-fx-background-color: #5C0099; -fx-background-radius: 5;">
+               <children>
+                  <Text fill="WHITE" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Summerise" textAlignment="CENTER" wrappingWidth="173.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane layoutX="197.0" layoutY="74.0" prefHeight="45.0" prefWidth="173.0" style="-fx-background-color: #5C0099; -fx-background-radius: 5;">
+               <children>
+                  <Text fill="WHITE" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translate" textAlignment="CENTER" wrappingWidth="173.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <Pane layoutX="197.0" layoutY="129.0" prefHeight="45.0" prefWidth="173.0" style="-fx-background-color: #5C0099; -fx-background-radius: 5;">
+               <children>
+                  <Text fill="WHITE" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Review Key Points" textAlignment="CENTER" wrappingWidth="173.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <TextArea layoutX="17.0" layoutY="19.0" prefHeight="156.0" prefWidth="166.0" text="Description" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
