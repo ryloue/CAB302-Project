@@ -5,7 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+import com.example.cab302finalproj.database.sqLiteAccountDAO;
+import com.example.cab302finalproj.database.sqLiteConnection;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -18,8 +19,10 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-    }
+        accountDAO = new sqLiteAccountDAO();
 
+    }
+    private sqLiteAccountDAO accountDAO;
     public static void main(String[] args) {
         launch();
     }
