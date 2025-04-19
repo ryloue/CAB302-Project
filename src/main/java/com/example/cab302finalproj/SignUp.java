@@ -33,13 +33,11 @@ public class SignUp {
 
     @FXML
     private void handleSignUp(ActionEvent event) throws IOException {
-        // Here you would normally validate inputs and create a new user account
-        // For now, we'll just navigate to the dashboard
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainLayout.fxml"));
         Parent root = loader.load();
 
-        // Get the current stage from the event
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Dashboard");
