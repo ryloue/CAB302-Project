@@ -35,7 +35,7 @@
             <TextField layoutX="15.0" layoutY="84.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Email" />
             <TextField layoutX="15.0" layoutY="146.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Password" />
             <TextField layoutX="15.0" layoutY="206.0" prefHeight="25.0" prefWidth="163.0" promptText="Confirm Password" />
-            <Button layoutX="70.0" layoutY="256.0" mnemonicParsing="false" style="-fx-background-color: #FFD500;" text="SignUP">
+            <Button layoutX="70.0" layoutY="256.0" mnemonicParsing="false" style="-fx-background-color: #FFD500;" text="SignUP" onAction="#handleSignUp">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
