@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302finalproj.MainLayout">
+<BorderPane prefHeight="423.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.MainLayout">
     <left>
-        <fx:include source="Sidebar.fxml"/>
+        <fx:include source="Sidebar.fxml" />
     </left>
     <center>
-        <StackPane fx:id="contentArea"/>
+        <StackPane fx:id="contentArea" />
     </center>
 </BorderPane>

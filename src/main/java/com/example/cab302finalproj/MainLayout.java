@@ -2,27 +2,29 @@ package com.example.cab302finalproj;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class MainLayout {
-    @FXML
-    private StackPane contentArea;
 
     @FXML
-    public void initialize() {
-        // Load the Home page by default
+    StackPane contentArea;
+
+    @FXML
+    private void initialize() {
         Navigator.mainLayout = this;
         loadPage("Home.fxml");
     }
 
-    public void loadPage(String fxml) {
+    public void loadPage(String page) {
         try {
-            Parent page = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxml)));
-            contentArea.getChildren().setAll(page);
+            if (page == null) {
+                contentArea.getChildren().clear();
+                return;
+            }
+            contentArea.getChildren().clear();
+            contentArea.getChildren().add(FXMLLoader.load(getClass().getResource("/com/example/cab302finalproj/" + page)));
         } catch (IOException e) {
             e.printStackTrace();
         }

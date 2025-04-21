@@ -5,35 +5,39 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="130.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Sidebar">
-   <Pane layoutY="-1.0" prefHeight="400.0" prefWidth="142.0" style="-fx-background-color: #5C0099;">
+<AnchorPane prefHeight="423.0" prefWidth="130.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Sidebar">
+   <Pane layoutY="-1.0" prefHeight="425.0" prefWidth="142.0" style="-fx-background-color: #5C0099;">
       <children>
-         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleHomeClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Home">
+         <Button layoutX="24.0" layoutY="95.0" mnemonicParsing="false" onAction="#handleHomeClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Home">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Button>
-         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleDashboardClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Dashboard">
+         <Button layoutX="24.0" layoutY="132.0" mnemonicParsing="false" onAction="#handleDashboardClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Dashboard">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Button>
-         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="170.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Flashcards">
+         <Button layoutX="24.0" layoutY="170.0" mnemonicParsing="false" onAction="#handleFlashcardsClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Flashcards">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Button>
-         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="207.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="History">
+         <Button layoutX="24.0" layoutY="207.0" mnemonicParsing="false" onAction="#handleHistoryClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="History">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Button>
-         <Button alignment="CENTER" contentDisplay="CENTER" layoutX="24.0" layoutY="343.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Settings">
+         <Button layoutX="24.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleSettingsClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Settings">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Button>
+         <Button layoutX="24.0" layoutY="380.0" mnemonicParsing="false" onAction="#handleLogoutClick" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #FFD500;" text="Logout">
             <font>
                <Font name="System Bold" size="14.0" />
             </font>
          </Button>
       </children>
    </Pane>
-
 </AnchorPane>
