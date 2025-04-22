@@ -21,6 +21,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <TextField layoutX="22.0" layoutY="25.0" text="Search" />
+      <TextField layoutX="22.0" layoutY="25.0" promptText="Search" />
    </children>
 </AnchorPane>
