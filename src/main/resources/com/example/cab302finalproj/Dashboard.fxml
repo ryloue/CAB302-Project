@@ -3,9 +3,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #FFD500;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Dashboard">
+<AnchorPane prefHeight="423.0" prefWidth="600.0" style="-fx-background-color: #FFD500;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.Dashboard">
    <children>
-      <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is dashboard" />
+      <!-- Removed strokeType and strokeWidth as they are default values -->
+      <Text layoutX="289.0" layoutY="205.0" text="This is dashboard" />
    </children>
 </AnchorPane>
