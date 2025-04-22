@@ -23,7 +23,7 @@
       </Pane>
       <Pane layoutX="57.0" layoutY="172.0" prefHeight="177.0" prefWidth="343.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;">
          <children>
-            <Pane layoutX="11.0" layoutY="17.0" prefHeight="119.0" prefWidth="317.0" style="-fx-background-color: #FFD500; -fx-background-radius: 12;">
+            <Pane layoutX="13.0" layoutY="14.0" prefHeight="119.0" prefWidth="317.0" style="-fx-background-color: #FFD500; -fx-background-radius: 12;">
                <children>
                   <Text layoutX="42.0" layoutY="68.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Flip to Show Answer" wrappingWidth="233.99996948242188">
                      <font>
