@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
-
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
