@@ -11,7 +11,7 @@ public class TestLogin {
     }
 
     @Test
-    public void testSetUsername() {
+    public void testUsername() {
 
     }
 }
