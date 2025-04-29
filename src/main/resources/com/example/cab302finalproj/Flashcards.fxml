@@ -32,7 +32,7 @@
                   </Text>
                </children>
             </Pane>
-            <Button layoutX="118.0" layoutY="145.0" mnemonicParsing="false" style="-fx-background-color: #FFD500;" text="&lt;--">
+            <Button layoutX="118.0" layoutY="145.0" onAction="#handleFlashcardAnswerclick" mnemonicParsing="false" style="-fx-background-color: #FFD500;" text="&lt;--">
                <font>
                   <Font size="10.0" />
                </font></Button>
