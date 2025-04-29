@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.History">
+   <children>
+      <Pane layoutX="38.0" layoutY="31.0" prefHeight="338.0" prefWidth="523.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+         <opaqueInsets>
+            <Insets bottom="102.0" top="102.0" />
+         </opaqueInsets>
+         <children>
+            <Pane layoutX="20.0" layoutY="17.0" prefHeight="304.0" prefWidth="484.0" style="-fx-background-color: FDC500; -fx-background-radius: 10;">
+               <opaqueInsets>
+                  <Insets bottom="102.0" top="102.0" />
+               </opaqueInsets>
+               <children>
+                  <Pane layoutX="176.0" layoutY="60.0" prefHeight="231.0" prefWidth="292.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+                     <opaqueInsets>
+                        <Insets bottom="102.0" top="102.0" />
+                     </opaqueInsets>
+                  </Pane>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="7.0" prefHeight="32.0" prefWidth="292.0" spacing="15.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;">
+                           <children>
+                              <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                              <TextField prefHeight="33.0" prefWidth="83.0" promptText="Search" style="-fx-border-width: 0; -fx-background-color: transparent;" />
+                              <ImageView fitHeight="31.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="32.0" prefWidth="111.0" spacing="5.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="25.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8;" text="Date" />
+                              <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" style="-fx-background-color: #ffffff; -fx-background-radius: 8;" text="Subject" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <VBox layoutX="21.0" layoutY="53.0" prefHeight="250.0" prefWidth="140.0" spacing="10.0">
+                     <padding>
+                        <Insets bottom="15.0" right="15.0" top="15.0" />
+                     </padding>
+                     <children>
+                        <Label text="Recent">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Label>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="66.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@../../../style.css">
+                           <content>
+                              <VBox prefHeight="77.0" prefWidth="140.0" spacing="5.0" style="-fx-background: false;">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #ffd500; -fx-background-radius: 10;" text="Label" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="10.0" layoutY="25.0" text="Last 7 Days">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="66.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@../../../style.css">
+                           <content>
+                              <VBox prefHeight="77.0" prefWidth="140.0" spacing="5.0" style="-fx-background: false;">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #ffd500; -fx-background-radius: 10;" text="Label" />
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

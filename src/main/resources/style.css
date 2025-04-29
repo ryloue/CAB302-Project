@@ -15,3 +15,62 @@
 .nav-item:hover {
     -fx-background-color: #34495e;
 }
+.ComboBox{
+ -fx-background-color: purple;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-border-color: #FDC500;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5 10;
+}
+
+.combo-box:hover {
+    -fx-background-color: #5a0099;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color:  #3D0066;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}
+
+.combo-box .list-cell {
+    -fx-background-color:  #3D0066;
+    -fx-text-fill: white;
+}
+.BtnHome{
+  -fx-background-color: #6200ea;  /* Deep purple */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0.3, 0, 2);
+    -fx-transition: all 0.3s ease;
+}
+.BtnHome:hover{
+ -fx-background-color: #3700b3;  /* Slightly darker */
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+     -fx-background-color: linear-gradient(to right, #7e57c2, #512da8);
+        -fx-effect: dropshadow(gaussian, rgba(138,43,226,0.6), 10, 0.3, 0, 4);
+}
+
+.button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+    -fx-background-color: #311b92;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+    -fx-background-color: transparent;
+}

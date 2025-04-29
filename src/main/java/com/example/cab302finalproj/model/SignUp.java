@@ -42,7 +42,7 @@ public class SignUp {
             AnchorPane newPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/cab302finalproj/Login.fxml")));
             SignUpContent.getChildren().setAll(newPage);
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error loading Login FXML", e);
+            LOGGER.log(Level.SEVERE, "Error loading Login FXML.", e);
         }
     }
 
