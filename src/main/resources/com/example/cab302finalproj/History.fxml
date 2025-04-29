@@ -12,19 +12,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.History">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="463.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.History">
    <children>
-      <Pane layoutX="38.0" layoutY="31.0" prefHeight="338.0" prefWidth="523.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+      <Pane layoutX="16.0" layoutY="65.0" prefHeight="295.0" prefWidth="431.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
          <opaqueInsets>
             <Insets bottom="102.0" top="102.0" />
          </opaqueInsets>
          <children>
-            <Pane layoutX="20.0" layoutY="17.0" prefHeight="304.0" prefWidth="484.0" style="-fx-background-color: FDC500; -fx-background-radius: 10;">
+            <Pane layoutX="18.0" layoutY="15.0" prefHeight="265.0" prefWidth="397.0" style="-fx-background-color: FDC500; -fx-background-radius: 10;">
                <opaqueInsets>
                   <Insets bottom="102.0" top="102.0" />
                </opaqueInsets>
                <children>
-                  <Pane layoutX="176.0" layoutY="60.0" prefHeight="231.0" prefWidth="292.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+                  <Pane layoutX="171.0" layoutY="73.0" prefHeight="192.0" prefWidth="212.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
                      <opaqueInsets>
                         <Insets bottom="102.0" top="102.0" />
                      </opaqueInsets>
