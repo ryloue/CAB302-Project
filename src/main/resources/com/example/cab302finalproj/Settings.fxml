@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="SettingsContent" prefHeight="400.0" prefWidth="459.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.model.Settings">
+<AnchorPane fx:id="SettingsContent" maxHeight="-Infinity" prefHeight="425.0" prefWidth="600.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.model.Settings">
    <children>
-      <Pane layoutX="29.0" layoutY="29.0" prefHeight="341.0" prefWidth="402.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
+      <Pane layoutX="50.0" layoutY="42.0" prefHeight="341.0" prefWidth="402.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
          <children>
             <Pane layoutX="14.0" layoutY="13.0" prefHeight="296.0" prefWidth="375.0" style="-fx-background-color: #FFD500; -fx-background-radius: 12;">
                <children>
