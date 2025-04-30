@@ -27,10 +27,10 @@ public class Login {
     private AnchorPane LoginContent;
 
     @FXML
-    private TextField emailField;
+    public TextField emailField;
 
     @FXML
-    private PasswordField passwordField;
+    public PasswordField passwordField;
 
     @FXML
     private void handleForgotPassword() {
@@ -101,11 +101,30 @@ public class Login {
      * @param title The alert title
      * @param message The alert message
      */
+
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public boolean validateLogin(String email, String password) {
+        // Check if email or password fields are empty
+        if (email.isEmpty() || password.isEmpty()) {
+            showAlert(Alert.AlertType.ERROR, "Login Error", "Please enter both email and password.");
+            return false;
+        }
+
+        // Validate email format (basic validation)
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if (!email.matches(emailRegex)) {
+            showAlert(Alert.AlertType.ERROR, "Login Error", "Invalid email format. Please enter a valid email.");
+            return false;
+        }
+
+        // If both email and password are valid
+        return true;
     }
 }
