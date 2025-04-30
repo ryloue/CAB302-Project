@@ -1,6 +1,7 @@
 import com.example.cab302finalproj.HelloApplication;
 import com.example.cab302finalproj.model.Login;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeAll;
@@ -16,9 +17,12 @@ class TestLogin {
     // Email regex pattern from Login class (same as SignUp)
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     @BeforeAll
-    static void setupJavaFX() {
-        // Launch a temporary JavaFX Application to initialize the toolkit
-        Application.launch(HelloApplication.class);
+    static void initToolkit() {
+        try {
+            Platform.startup(() -> {});
+        } catch (IllegalStateException e) {
+            // JavaFX is already initialized
+        }
     }
     /**
      * Tests the validation logic for empty fields
