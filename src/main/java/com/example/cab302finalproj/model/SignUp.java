@@ -28,13 +28,13 @@ public class SignUp {
     private static final Logger LOGGER = Logger.getLogger(SignUp.class.getName());
 
     @FXML
-    private TextField emailField;
+    public TextField emailField;
 
     @FXML
-    private PasswordField passwordField;
+    public PasswordField passwordField;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    public PasswordField confirmPasswordField;
 
     @FXML
     private void GotoLogin() {
@@ -115,7 +115,7 @@ public class SignUp {
     }
 
 
-    private boolean validateInputs() {
+    public boolean validateInputs() {
 
         if (emailField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() ||
