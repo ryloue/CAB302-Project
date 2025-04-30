@@ -32,6 +32,7 @@ class TestLogin {
         login.emailField = new TextField();
         login.passwordField = new PasswordField();
 
+
         // Test empty email and password
         login.emailField.setText("");
         login.passwordField.setText("password123");
