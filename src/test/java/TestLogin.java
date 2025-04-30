@@ -1,6 +1,5 @@
-import com.example.cab302finalproj.HelloApplication;
+
 import com.example.cab302finalproj.model.Login;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
