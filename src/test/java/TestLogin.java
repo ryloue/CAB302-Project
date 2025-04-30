@@ -1,8 +1,4 @@
 
-import com.example.cab302finalproj.model.Login;
-import javafx.application.Platform;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,45 +11,24 @@ class TestLogin {
 
     // Email regex pattern from Login class (same as SignUp)
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    @BeforeAll
-    static void initToolkit() {
-        try {
-            Platform.startup(() -> {});
-        } catch (IllegalStateException e) {
-            // JavaFX is already initialized
-        }
-    }
+
     /**
      * Tests the validation logic for empty fields
      */
     @Test
     @DisplayName("Test validateLogin with empty fields")
     void testValidateLoginWithEmptyFields() {
-        Login login = new Login();
+        // Empty email
+        assertFalse(validateLoginFields("", "password123"), "Empty email should fail validation");
 
-        // Initialize emailField and passwordField manually since they are injected via FXML
-        login.emailField = new TextField();
-        login.passwordField = new PasswordField();
+        // Empty password
+        assertFalse(validateLoginFields("test@example.com", ""), "Empty password should fail validation");
 
-
-        // Test empty email and password
-        login.emailField.setText("");
-        login.passwordField.setText("password123");
-        assertFalse(validateLoginFields(login.emailField.getText(), login.passwordField.getText()),
-                "Empty email should fail validation");
-
-        // Test empty email
-        login.emailField.setText("");
-        login.passwordField.setText("password123");
-        assertFalse(validateLoginFields(login.emailField.getText(), login.passwordField.getText()),
-                "Empty email should fail validation");
-
-        // Test empty password
-        login.emailField.setText("test@example.com");
-        login.passwordField.setText("");
-        assertFalse(validateLoginFields(login.emailField.getText(), login.passwordField.getText()),
-                "Empty password should fail validation");
+        // Both fields empty
+        assertFalse(validateLoginFields("", ""), "Both fields empty should fail validation");
     }
+
+
     /**
      * Tests the validation logic for invalid email format
      */
