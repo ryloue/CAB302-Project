@@ -13,11 +13,25 @@ public class UserDAO {
 
         String sql = "INSERT INTO users (email, password) VALUES (?, ?)";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1, email);
             pstmt.setString(2, hashedPassword);
-
             int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = pstmt.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int userId = generatedKeys.getInt(1);
+                    CurrentUser.setCurrentUserId(userId);
+                    String insertFlashcardSQL = "INSERT INTO flashcards (fromId) VALUES (?)";
+                    try (PreparedStatement flashcardStmt = conn.prepareStatement(insertFlashcardSQL)) {
+                        flashcardStmt.setInt(1, userId);
+                        CurrentUser.setCurrentUserId(userId);
+                        flashcardStmt.executeUpdate();
+                    }
+                } else {
+                    throw new SQLException("User insertion failed, no ID obtained.");
+                }
+            }
             return rowsAffected > 0;
         } catch (SQLException e) {
             if (e.getMessage().contains("UNIQUE constraint failed")) {
@@ -31,7 +45,7 @@ public class UserDAO {
     public static boolean authenticateUser(String email, String password) throws SQLException, NoSuchAlgorithmException {
         Connection conn = DatabaseManager.getInstance().getConnection();
 
-        String sql = "SELECT password FROM users WHERE email = ?";
+        String sql = "SELECT id, password FROM users WHERE email = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, email);
@@ -40,7 +54,8 @@ public class UserDAO {
                 if (rs.next()) {
                     String storedHashedPassword = rs.getString("password");
                     String hashedPassword = hashPassword(password);
-
+                    int userId = rs.getInt("id");
+                    CurrentUser.setCurrentUserId(userId);
                     return storedHashedPassword.equals(hashedPassword);
                 }
                 return false;

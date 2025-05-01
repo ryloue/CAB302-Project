@@ -1,10 +1,12 @@
 package com.example.cab302finalproj;
 
+import com.example.cab302finalproj.model.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class MainLayout {
 
