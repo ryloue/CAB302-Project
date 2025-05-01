@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -24,7 +25,7 @@
                   <Insets bottom="102.0" top="102.0" />
                </opaqueInsets>
                <children>
-                  <Pane layoutX="171.0" layoutY="73.0" prefHeight="192.0" prefWidth="212.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+                  <Pane layoutX="171.0" layoutY="73.0" prefHeight="179.0" prefWidth="212.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
                      <opaqueInsets>
                         <Insets bottom="102.0" top="102.0" />
                      </opaqueInsets>
@@ -33,7 +34,10 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="31.0" prefWidth="150.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10;">
                            <children>
-                              <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="31.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" scaleX="0.7" scaleY="0.7">
+                                 <image>
+                                    <Image url="@../../../images/search.png" />
+                                 </image></ImageView>
                               <TextField prefHeight="33.0" prefWidth="83.0" promptText="Search" style="-fx-border-width: 0; -fx-background-color: transparent;" />
                               <ImageView fitHeight="31.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                            </children>

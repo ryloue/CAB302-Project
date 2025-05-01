@@ -14,40 +14,40 @@
       <Pane layoutX="195.0" layoutY="27.0" prefHeight="346.0" prefWidth="210.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;">
          <children>
             <!-- Removed strokeType and strokeWidth -->
-            <Text fill="#ffd500" layoutX="71.0" layoutY="45.0" text="SignUp">
+            <Text fill="#ffd500" layoutX="71.0" layoutY="45.0" text="Sign Up">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Text>
-            <Text fill="#ffd500" layoutX="15.0" layoutY="77.0" text="Email" wrappingWidth="41.124267578125">
+            <Text fill="#ffd500" layoutX="25.0" layoutY="77.0" text="Email" wrappingWidth="41.124267578125">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text fill="#ffd500" layoutX="15.0" layoutY="139.0" text="Password" wrappingWidth="82.7242431640625">
+            <Text fill="#ffd500" layoutX="25.0" layoutY="139.0" text="Password" wrappingWidth="82.7242431640625">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <Text fill="#ffd500" layoutX="15.0" layoutY="199.0" text="Confirm  password" wrappingWidth="149.92425537109375">
+            <Text fill="#ffd500" layoutX="25.0" layoutY="199.0" text="Confirm  password" wrappingWidth="149.92425537109375">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Text>
-            <TextField fx:id="emailField" layoutX="15.0" layoutY="84.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Email" />
-            <PasswordField fx:id="passwordField" layoutX="15.0" layoutY="146.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Password" />
-            <PasswordField fx:id="confirmPasswordField" layoutX="15.0" layoutY="206.0" prefHeight="25.0" prefWidth="163.0" promptText="Confirm Password" />
-            <Button layoutX="70.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleSignUp" style="-fx-background-color: #FFD500;" text="SignUP">
+            <TextField fx:id="emailField" layoutX="25.0" layoutY="84.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Email" style="-fx-background-radius: 6;" onAction="#handleSignUp" />
+            <PasswordField fx:id="passwordField" layoutX="25.0" layoutY="146.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Password" style="-fx-background-radius: 6;" onAction="#handleSignUp" />
+            <PasswordField fx:id="confirmPasswordField" layoutX="25.0" layoutY="206.0" prefHeight="25.0" prefWidth="163.0" promptText="Confirm Password" style="-fx-background-radius: 6;" onAction="#handleSignUp" />
+            <Button layoutX="70.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleSignUp" style="-fx-background-color: #FFD500;" text="Sign Up">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Text fill="#ffd500" layoutX="31.0" layoutY="305.0" text="Already Have a Account ?">
+            <Text fill="#ffd500" layoutX="35.0" layoutY="305.0" text="Already Have a Account?">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Text>
-            <Hyperlink fx:id="Login_Link" layoutX="49.0" layoutY="308.0" onAction="#GotoLogin" text="Click Here to login" textFill="#ffd500" underline="true">
+            <Hyperlink fx:id="Login_Link" layoutX="49.0" layoutY="308.0" onAction="#GotoLogin" text="Click here to login" textFill="#ffd500" underline="true">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
