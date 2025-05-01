@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -35,6 +38,23 @@ public class SignUp {
 
     @FXML
     private PasswordField confirmPasswordField;
+
+    // List of valid domains
+    private final List<String> validDomains = Arrays.asList(
+            "@gmail.com",
+            "@outlook.com",
+            "@yahoo.com",
+            "@qut.edu.au"
+    );
+
+    private boolean isDomainValid(String email) {
+        for (String domain : validDomains) {
+            if (email.toLowerCase().endsWith(domain)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @FXML
     private void GotoLogin() {
@@ -114,7 +134,6 @@ public class SignUp {
         }
     }
 
-
     private boolean validateInputs() {
 
         if (emailField.getText().isEmpty() ||
@@ -134,6 +153,12 @@ public class SignUp {
             return false;
         }
 
+        // Check if email ends with valid domains
+        if (!isDomainValid(emailField.getText())) {
+            showAlert(Alert.AlertType.ERROR, "Validation Error",
+                    "Please enter a valid email address with one of our supported domains (gmail.com, outlook.com, yahoo.com, qut.edu.au)");
+            return false;
+        }
 
         if (passwordField.getText().length() < 8) {
             showAlert(Alert.AlertType.ERROR, "Validation Error",
