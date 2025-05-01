@@ -14,7 +14,7 @@
       <Pane layoutX="195.0" layoutY="27.0" prefHeight="346.0" prefWidth="210.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;">
          <children>
             <!-- Removed strokeType and strokeWidth -->
-            <Text fill="#ffd500" layoutX="71.0" layoutY="45.0" text="SignUp">
+            <Text fill="#ffd500" layoutX="71.0" layoutY="45.0" text="Sign Up">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -37,7 +37,7 @@
             <TextField fx:id="emailField" layoutX="15.0" layoutY="84.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Email" />
             <PasswordField fx:id="passwordField" layoutX="15.0" layoutY="146.0" prefHeight="25.0" prefWidth="163.0" promptText="Enter Password" />
             <PasswordField fx:id="confirmPasswordField" layoutX="15.0" layoutY="206.0" prefHeight="25.0" prefWidth="163.0" promptText="Confirm Password" />
-            <Button layoutX="70.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleSignUp" style="-fx-background-color: #FFD500;" text="SignUP">
+            <Button layoutX="70.0" layoutY="256.0" mnemonicParsing="false" onAction="#handleSignUp" style="-fx-background-color: #FFD500;" text="Sign Up">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
