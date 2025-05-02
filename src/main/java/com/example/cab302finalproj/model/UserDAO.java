@@ -80,7 +80,7 @@ public class UserDAO {
         }
     }
 
-    private static String hashPassword(String password) throws NoSuchAlgorithmException {
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hash = md.digest(password.getBytes());
 
