@@ -42,13 +42,14 @@ public class Settings {
             // Retrieve and set user data
             int userId = CurrentUser.getCurrentUserId();
             Connection conn = DatabaseManager.getInstance().getConnection();
-            String sql = "SELECT email, password FROM users WHERE id = ?";
+            String sql = "SELECT email FROM users WHERE id = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setInt(1, userId);
                 try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         TextField emailField = (TextField) profilePane.lookup("#emailField");
                         TextField passwordField = (TextField) profilePane.lookup("#passwordField");
+
                         emailField.setText(rs.getString("email"));
                         passwordField.setText("********"); // Masked password
                     }

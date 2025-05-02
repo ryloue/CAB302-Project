@@ -77,21 +77,39 @@ public class ProfileSettings {
                 }
             }
 
-            String hashedPassword = UserDAO.hashPassword(newPassword);
-            System.out.println("Hashed Password for update: " + hashedPassword); // Debug log
+            // Update email only
+            if (newPassword.isEmpty() || newPassword.matches("\\*+")) {
+                String sqlEmailOnly = "UPDATE users SET email = ? WHERE id = ?";
+                try (PreparedStatement pstmt = conn.prepareStatement(sqlEmailOnly)) {
+                    pstmt.setString(1, newEmail);
+                    pstmt.setInt(2, userId);
+                    int rowsAffected = pstmt.executeUpdate();
 
-            String sql = "UPDATE users SET email = ?, password = ? WHERE id = ?";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setString(1, newEmail);
-                pstmt.setString(2, hashedPassword);
-                pstmt.setInt(3, userId);
-                int rowsAffected = pstmt.executeUpdate();
-                if (rowsAffected > 0) {
-                    showAlert(Alert.AlertType.INFORMATION, "Success", "Profile updated successfully!");
-                } else {
-                    showAlert(Alert.AlertType.ERROR, "Update Error", "Failed to update profile.");
+                    if (rowsAffected > 0) {
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Email updated successfully!");
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Update Error", "Failed to update email.");
+                    }
+                }
+            } else {
+                // Update email and password
+                String hashedPassword = UserDAO.hashPassword(newPassword);
+                String sqlFull = "UPDATE users SET email = ?, password = ? WHERE id = ?";
+
+                try (PreparedStatement pstmt = conn.prepareStatement(sqlFull)) {
+                    pstmt.setString(1, newEmail);
+                    pstmt.setString(2, hashedPassword);
+                    pstmt.setInt(3, userId);
+                    int rowsAffected = pstmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        showAlert(Alert.AlertType.INFORMATION, "Success", "Profile updated successfully!");
+                    } else {
+                        showAlert(Alert.AlertType.ERROR, "Update Error", "Failed to update profile.");
+                    }
                 }
             }
+
+
         } catch (SQLException | NoSuchAlgorithmException e) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to update profile: " + e.getMessage());
         }
