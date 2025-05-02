@@ -17,6 +17,10 @@ public class Login {
 
     @FXML
     private AnchorPane LoginContent;
+
+
+
+
     @FXML
     private void handleLinkClick() {
         try {
@@ -25,6 +29,8 @@ public class Login {
             e.printStackTrace();
         }
     }
+
+
 
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {

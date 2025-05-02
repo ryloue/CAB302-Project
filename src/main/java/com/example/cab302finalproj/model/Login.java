@@ -39,7 +39,7 @@ public class Login {
     }
 
     @FXML
-    private void handleLogin(ActionEvent event) {
+    public void handleLogin(ActionEvent event) {
         try {
             // Get the email and password
             String email = emailField.getText();
@@ -72,8 +72,16 @@ public class Login {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302finalproj/MainLayout.fxml"));
             Parent root = loader.load();
 
-            // This gets the current stage from the event
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // SAFE WAY TO GET THE STAGE:
+            Stage stage;
+            if (event.getSource() instanceof Node) {
+                // If triggered by button click
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            } else {
+                // If triggered programmatically or by keyboard
+                stage = (Stage) emailField.getScene().getWindow(); // Use any existing node
+            }
+
             stage.setScene(new Scene(root));
             stage.setTitle("Dashboard");
             stage.show();
