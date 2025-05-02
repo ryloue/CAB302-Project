@@ -11,7 +11,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.List;
 
 public class ProfileSettings {
     @FXML
@@ -23,9 +24,25 @@ public class ProfileSettings {
     @FXML
     private TextField passwordField;
 
+    private final List<String> validDomains = Arrays.asList(
+            "@gmail.com",
+            "@outlook.com",
+            "@yahoo.com",
+            "@qut.edu.au"
+    );
+
+    private boolean isDomainValid(String email) {
+        for (String domain : validDomains) {
+            if (email.toLowerCase().endsWith(domain)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @FXML
     private void saveChanges() {
-        String newEmail = emailField.getText().trim();
+        String newEmail = emailField.getText().trim().toLowerCase(); // Normalize to lowercase
         String newPassword = passwordField.getText().trim();
 
         if (newEmail.isEmpty() || newPassword.isEmpty()) {
@@ -37,17 +54,32 @@ public class ProfileSettings {
         Connection conn = DatabaseManager.getInstance().getConnection();
 
         try {
-            // Validate email format (simplified regex)
             String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
             if (!newEmail.matches(emailRegex)) {
                 showAlert(Alert.AlertType.ERROR, "Validation Error", "Please enter a valid email address.");
                 return;
             }
 
-            // Hash the new password
-            String hashedPassword = UserDAO.hashPassword(newPassword);
+            if (!isDomainValid(newEmail)) {
+                showAlert(Alert.AlertType.ERROR, "Validation Error",
+                        "Please enter an email address with a supported domain (gmail.com, outlook.com, yahoo.com, qut.edu.au).");
+                return;
+            }
 
-            // Update user in database
+            String checkEmailSql = "SELECT id FROM users WHERE email = ? AND id != ?";
+            try (PreparedStatement checkStmt = conn.prepareStatement(checkEmailSql)) {
+                checkStmt.setString(1, newEmail);
+                checkStmt.setInt(2, userId);
+                if (checkStmt.executeQuery().next()) {
+                    showAlert(Alert.AlertType.ERROR, "Validation Error",
+                            "This email is already registered. Please use a different email.");
+                    return;
+                }
+            }
+
+            String hashedPassword = UserDAO.hashPassword(newPassword);
+            System.out.println("Hashed Password for update: " + hashedPassword); // Debug log
+
             String sql = "UPDATE users SET email = ?, password = ? WHERE id = ?";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, newEmail);

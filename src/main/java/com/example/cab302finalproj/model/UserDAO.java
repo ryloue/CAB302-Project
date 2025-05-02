@@ -4,7 +4,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
-
 public class UserDAO {
 
     public static boolean registerUser(String email, String password) throws SQLException, NoSuchAlgorithmException {
@@ -14,7 +13,7 @@ public class UserDAO {
         String sql = "INSERT INTO users (email, password) VALUES (?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, email);
+            pstmt.setString(1, email.toLowerCase()); // Normalize email to lowercase
             pstmt.setString(2, hashedPassword);
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -48,8 +47,7 @@ public class UserDAO {
         String sql = "SELECT id, password FROM users WHERE email = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, email);
-
+            pstmt.setString(1, email.toLowerCase()); // Normalize email to lowercase
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     String storedHashedPassword = rs.getString("password");
@@ -69,8 +67,7 @@ public class UserDAO {
         String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, email);
-
+            pstmt.setString(1, email.toLowerCase()); // Normalize email to lowercase
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) > 0;
