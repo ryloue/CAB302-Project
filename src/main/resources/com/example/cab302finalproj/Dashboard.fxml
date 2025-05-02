@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="445.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Dashboard">
    <children>
       <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is dashboard" />
-      <Pane layoutX="23.0" layoutY="98.0" prefHeight="277.0" prefWidth="391.0" style="-fx-background-color: FDC500; -fx-background-radius: 10;">
+      <Pane layoutX="23.0" layoutY="98.0" prefHeight="277.0" prefWidth="391.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;">
          <children>
             <TextArea layoutX="17.0" layoutY="19.0" prefHeight="240.0" prefWidth="356.0" style="-fx-background-color: #FDC500;" text="Recent notes:" />
          </children>
