@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="SettingsContent" maxHeight="-Infinity" prefHeight="425.0" prefWidth="463.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.model.Settings">
+   <children>
+      <Pane layoutX="31.0" layoutY="41.0" prefHeight="341.0" prefWidth="402.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
+         <children>
+            <Pane layoutX="14.0" layoutY="13.0" prefHeight="296.0" prefWidth="375.0" style="-fx-background-color: #FFD500; -fx-background-radius: 12;">
+               <children>
+                  <Button layoutX="19.0" layoutY="14.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="161.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;" text="Change Theme" textFill="WHITE" onAction="#changeTheme">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="195.0" layoutY="14.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="161.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;" text="Notification Preferences" textFill="WHITE" onAction="#notificationPreferences">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="19.0" layoutY="157.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="161.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;" text="Profile Settings" textFill="WHITE" onAction="#showProfileSettings">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="195.0" layoutY="157.0" mnemonicParsing="false" prefHeight="130.0" prefWidth="161.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;" text="Reset Notes" textFill="WHITE" onAction="#resetNotes">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

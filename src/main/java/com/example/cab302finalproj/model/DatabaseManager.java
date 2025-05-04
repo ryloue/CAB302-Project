@@ -51,6 +51,17 @@ public class DatabaseManager {
         try (Statement stmt = connection.createStatement()) {
             stmt.execute(createUsersTable);
         }
+        String createFlashcardTable =
+                "CREATE TABLE IF NOT EXISTS flashcards(" +
+                        "fromId INTEGER, " +
+                        "titleNote TEXT, " +
+                        "notes TEXT, " +
+                        "FOREIGN KEY (fromId) REFERENCES users(id)" +
+                        ")";
+        try (Statement cfct = connection.createStatement()){
+            cfct.execute(createFlashcardTable);
+        }
+
     }
 
 
