@@ -4,6 +4,7 @@ module com.example.cab302finalproj {
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
     requires java.sql;
+    requires org.apache.pdfbox;
 
     opens com.example.cab302finalproj to javafx.fxml;
     opens com.example.cab302finalproj.Modules to com.fasterxml.jackson.databind;
