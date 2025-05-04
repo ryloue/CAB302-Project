@@ -116,3 +116,14 @@
     -fx-scale-x: 0.97;
     -fx-scale-y: 0.97;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent; /* Optional: Set background to transparent */
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-pref-width: 0; /* Hides the scrollbar */
+    -fx-pref-height: 0; /* Hides the scrollbar */
+    -fx-opacity: 0; /* Makes the scrollbar invisible */
+}
