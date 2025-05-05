@@ -1,7 +1,5 @@
 package com.example.cab302finalproj;
 
-import com.example.cab302finalproj.model.Flashcards;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +12,6 @@ import java.util.logging.Level;
 
 class Navigator {
     public static MainLayout mainLayout;
-
 }
 
 public class Sidebar {
@@ -34,7 +31,6 @@ public class Sidebar {
     @FXML
     private void handleFlashcardsClick() {
         Navigator.mainLayout.loadPage("Flashcards.fxml");
-
     }
 
     @FXML

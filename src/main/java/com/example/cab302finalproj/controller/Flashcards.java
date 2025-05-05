@@ -1,21 +1,16 @@
-package com.example.cab302finalproj.model;
+package com.example.cab302finalproj.controller;
 
 import com.example.cab302finalproj.MainLayout;
+import com.example.cab302finalproj.model.CurrentUser;
+import com.example.cab302finalproj.model.DatabaseManager;
 import javafx.animation.ScaleTransition;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.util.Objects;
-import java.util.logging.Level;
 
 
 public class Flashcards {
