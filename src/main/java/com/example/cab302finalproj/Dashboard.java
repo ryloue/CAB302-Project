@@ -10,7 +10,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
-//import org.w3c.dom.Text;
+
 import javafx.scene.text.Text;
 
 import java.sql.PreparedStatement;
@@ -26,6 +26,7 @@ public class Dashboard {
         // When clicked once: update SELECTED
         button.setOnAction(event -> {
             selectedLabel.setText("SELECTED: " + button.getText());
+            currentlySelectedButton = button;
         });
 
         // When double-clicked: rename
@@ -155,4 +156,36 @@ public class Dashboard {
 
     @FXML
     private Text selectedLabel;
+
+    private Button currentlySelectedButton = null;
+
+    @FXML
+    public void handleDeleteSelected() {
+        if (currentlySelectedButton == null) {
+            System.out.println("No button selected.");
+            return;
+        }
+
+        String labelToDelete = currentlySelectedButton.getText();
+        int userId = CurrentUser.getCurrentUserId();
+
+        // Remove from UI
+        buttonContainer.getChildren().remove(currentlySelectedButton);
+
+        // Remove from database
+        String deleteSQL = "DELETE FROM DashNotes WHERE userId = ? AND label = ?";
+
+        try (PreparedStatement pstmt = DatabaseManager.getInstance().getConnection().prepareStatement(deleteSQL)) {
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, labelToDelete);
+            pstmt.executeUpdate();
+            System.out.println("Deleted: " + labelToDelete);
+        } catch (SQLException e) {
+            System.err.println("Error deleting DashNote: " + e.getMessage());
+        }
+
+        // Reset selection
+        currentlySelectedButton = null;
+        selectedLabel.setText("SELECTED: ");
+    }
 }

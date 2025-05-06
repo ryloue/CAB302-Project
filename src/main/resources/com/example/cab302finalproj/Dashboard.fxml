@@ -41,7 +41,9 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="DeleteButton" layoutX="39.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #E03A3C; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
+      <Button fx:id="DeleteButton" layoutX="39.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0"
+              style="-fx-background-color: #E03A3C; -fx-background-radius: 10;" text="Delete" textFill="WHITE"
+              onAction="#handleDeleteSelected">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
