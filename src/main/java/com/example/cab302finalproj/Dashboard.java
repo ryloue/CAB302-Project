@@ -1,5 +1,7 @@
 package com.example.cab302finalproj;
 
+import com.example.cab302finalproj.model.CurrentUser;
+import com.example.cab302finalproj.model.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -9,7 +11,39 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Dashboard {
+
+    private Button createButtonWithRenameSupport(String label) {
+        Button button = new Button(label);
+        button.setStyle("-fx-background-color: #FDC500; -fx-background-radius: 10;");
+
+        button.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                renameButton(button, event);
+            }
+        });
+
+        return button;
+    }
+
+    private void saveButtonToDatabase(String label) {
+        int userId = CurrentUser.getCurrentUserId();
+
+        String insertSQL = "INSERT INTO DashNotes (userId, label) VALUES (?, ?)";
+
+        try (PreparedStatement pstmt = DatabaseManager.getInstance().getConnection().prepareStatement(insertSQL)) {
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, label);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error saving DashNote: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private TextArea notesArea;
@@ -27,24 +61,20 @@ public class Dashboard {
 
     @FXML
     public void handleAddMore() {
-        // Subtract 1 to exclude the "Add More" button itself
         int existingButtons = buttonContainer.getChildren().size() - 1;
 
-        if (existingButtons >= 6) {
-            System.out.println("Maximum of 6 buttons reached.");
-            return; // Stop adding more
+        if (existingButtons >= 7) {
+            System.out.println("Maximum of 7 buttons reached.");
+            return;
         }
 
-        Button newButton = new Button("Button " + buttonCount++);
-        newButton.setStyle("-fx-background-color: #FDC500; -fx-background-radius: 10;");
-
-        newButton.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                renameButton(newButton, event);
-            }
-        });
+        String buttonLabel = "Button " + buttonCount++;
+        Button newButton = createButtonWithRenameSupport(buttonLabel);
 
         buttonContainer.getChildren().add(newButton);
+
+        // Save to database
+        saveButtonToDatabase(buttonLabel);
     }
 
     private void renameButton(Button button, MouseEvent event) {
@@ -55,18 +85,61 @@ public class Dashboard {
         buttonContainer.getChildren().set(index, renamer);
 
         renamer.setOnAction(e -> {
-            button.setText(renamer.getText());
+            String newLabel = renamer.getText();
+            updateButtonLabelInDatabase(button.getText(), newLabel);
+            button.setText(newLabel);
             buttonContainer.getChildren().set(index, button);
         });
 
         renamer.focusedProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal) {
-                button.setText(renamer.getText());
+                String newLabel = renamer.getText();
+                updateButtonLabelInDatabase(button.getText(), newLabel);
+                button.setText(newLabel);
                 buttonContainer.getChildren().set(index, button);
             }
         });
 
-        // Optional: request focus for immediate typing
         renamer.requestFocus();
+    }
+
+    private void updateButtonLabelInDatabase(String oldLabel, String newLabel) {
+        int userId = CurrentUser.getCurrentUserId();
+
+        String updateSQL = "UPDATE DashNotes SET label = ? WHERE userId = ? AND label = ?";
+
+        try (PreparedStatement pstmt = DatabaseManager.getInstance().getConnection().prepareStatement(updateSQL)) {
+            pstmt.setString(1, newLabel);
+            pstmt.setInt(2, userId);
+            pstmt.setString(3, oldLabel);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error updating DashNote label: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void initialize() {
+        loadUserDashNotes();
+    }
+
+    private void loadUserDashNotes() {
+        int userId = CurrentUser.getCurrentUserId();
+
+        String query = "SELECT label FROM DashNotes WHERE userId = ?";
+
+        try (PreparedStatement pstmt = DatabaseManager.getInstance().getConnection().prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                String label = rs.getString("label");
+                Button button = createButtonWithRenameSupport(label);
+                buttonContainer.getChildren().add(button);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error loading DashNotes: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
