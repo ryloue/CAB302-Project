@@ -10,6 +10,8 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
+//import org.w3c.dom.Text;
+import javafx.scene.text.Text;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +23,12 @@ public class Dashboard {
         Button button = new Button(label);
         button.setStyle("-fx-background-color: #FDC500; -fx-background-radius: 10;");
 
+        // When clicked once: update SELECTED
+        button.setOnAction(event -> {
+            selectedLabel.setText("SELECTED: " + button.getText());
+        });
+
+        // When double-clicked: rename
         button.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 renameButton(button, event);
@@ -89,6 +97,7 @@ public class Dashboard {
             updateButtonLabelInDatabase(button.getText(), newLabel);
             button.setText(newLabel);
             buttonContainer.getChildren().set(index, button);
+            selectedLabel.setText("SELECTED: " + newLabel);
         });
 
         renamer.focusedProperty().addListener((obs, oldVal, newVal) -> {
@@ -97,6 +106,7 @@ public class Dashboard {
                 updateButtonLabelInDatabase(button.getText(), newLabel);
                 button.setText(newLabel);
                 buttonContainer.getChildren().set(index, button);
+                selectedLabel.setText("SELECTED: " + newLabel);
             }
         });
 
@@ -142,4 +152,7 @@ public class Dashboard {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private Text selectedLabel;
 }
