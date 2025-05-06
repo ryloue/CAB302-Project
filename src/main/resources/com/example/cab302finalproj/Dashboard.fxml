@@ -29,7 +29,7 @@
       <TextField layoutX="22.0" layoutY="25.0" promptText="Search" />
       <Pane layoutX="204.0" layoutY="19.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FDC500; -fx-background-radius: 5;">
          <children>
-            <Text layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECTED:">
+            <Text fx:id="selectedLabel" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECTED:">
                <font>
                   <Font size="15.0" />
                </font>
