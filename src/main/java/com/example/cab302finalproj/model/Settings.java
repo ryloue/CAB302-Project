@@ -46,6 +46,7 @@ public class Settings {
     private void showProfileSettings() {
         ProfileSettingsContent.setVisible(true);
 
+
         // Retrieve and set user data
         int userId = CurrentUser.getCurrentUserId();
         Connection conn = DatabaseManager.getInstance().getConnection();
