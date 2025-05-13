@@ -6,6 +6,8 @@ module com.example.cab302finalproj {
     requires java.sql;
     requires org.apache.pdfbox;
     requires java.net.http;
+    requires net.bytebuddy;
+    requires java.mail;
 
     opens com.example.cab302finalproj to javafx.fxml;
     opens com.example.cab302finalproj.Modules to com.fasterxml.jackson.databind;

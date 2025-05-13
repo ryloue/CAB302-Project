@@ -1,5 +1,6 @@
 package com.example.cab302finalproj.model;
 
+import com.example.cab302finalproj.controller.ForgotPassword;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,8 +35,12 @@ public class Login {
 
     @FXML
     private void handleForgotPassword() {
-        showAlert(Alert.AlertType.INFORMATION, "Forgot Password",
-                "Password reset is not implemented yet. Please contact support.");
+        try {
+            AnchorPane newPage = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/example/cab302finalproj/ForgotPassword.fxml")));
+            LoginContent.getChildren().setAll(newPage);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error loading ForgotPassword FXML", e);
+        }
     }
 
     @FXML
