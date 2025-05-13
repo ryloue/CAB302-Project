@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.TextField;
 
 import javafx.scene.text.Text;
 
@@ -23,10 +22,12 @@ public class Dashboard {
         Button button = new Button(label);
         button.setStyle("-fx-background-color: #FDC500; -fx-background-radius: 10;");
 
-        // When clicked once: update SELECTED
+        // When clicked once: update SELECTED and load notes
         button.setOnAction(event -> {
             selectedLabel.setText("SELECTED: " + button.getText());
             currentlySelectedButton = button;
+            String notes = loadNotesFromDatabase(button.getText());
+            notesArea.setText(notes);  // Display the loaded notes
         });
 
         // When double-clicked: rename
@@ -187,5 +188,53 @@ public class Dashboard {
         // Reset selection
         currentlySelectedButton = null;
         selectedLabel.setText("SELECTED: ");
+    }
+
+    @FXML
+    private void saveNotesToDatabase(String buttonLabel, String notes) {
+        int userId = CurrentUser.getCurrentUserId();
+        String updateSQL = "UPDATE DashNotes SET notes = ? WHERE userId = ? AND label = ?";
+
+        try (PreparedStatement pstmt = DatabaseManager.getInstance().getConnection().prepareStatement(updateSQL)) {
+            pstmt.setString(1, notes);
+            pstmt.setInt(2, userId);
+            pstmt.setString(3, buttonLabel);
+            pstmt.executeUpdate();
+            System.out.println("Notes saved for button: " + buttonLabel);
+        } catch (SQLException e) {
+            System.err.println("Error saving notes: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void handleSaveNotes() {
+        String buttonLabel = selectedLabel.getText().replace("SELECTED: ", "");
+        String notes = notesArea.getText();
+
+        if (!buttonLabel.isEmpty()) {
+            saveNotesToDatabase(buttonLabel, notes);
+        } else {
+            System.out.println("No button selected to save notes.");
+        }
+    }
+
+    private String loadNotesFromDatabase(String buttonLabel) {
+        int userId = CurrentUser.getCurrentUserId();
+
+        String query = "SELECT notes FROM DashNotes WHERE userId = ? AND label = ?";
+
+        try (PreparedStatement pstmt = DatabaseManager.getInstance().getConnection().prepareStatement(query)) {
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, buttonLabel);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("notes");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error loading notes from database: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return ""; // Return empty if no notes are found
     }
 }
