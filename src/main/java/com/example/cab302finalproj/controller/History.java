@@ -66,6 +66,10 @@ public class History implements Initializable {
         displayPrompts(week, weekPromptsContainer);
     }
 
+    public void refreshData() {
+        loadPrompts();
+    }
+
     private void searchPrompts(String searchTerm) {
         recentPromptsContainer.getChildren().clear();
         weekPromptsContainer.getChildren().clear();
