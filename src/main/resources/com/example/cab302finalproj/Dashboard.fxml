@@ -26,7 +26,7 @@
             </Button>
          </children>
       </HBox>
-      <TextField layoutX="22.0" layoutY="25.0" promptText="Search" />
+      <TextField fx:id="searchField" layoutX="22.0" layoutY="25.0" promptText="Search" onKeyReleased="#handleSearch" />
       <Pane layoutX="204.0" layoutY="19.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FDC500; -fx-background-radius: 5;">
          <children>
             <Text fx:id="selectedLabel" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECTED:">
