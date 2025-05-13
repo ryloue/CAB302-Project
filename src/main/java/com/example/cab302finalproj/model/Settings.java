@@ -51,7 +51,7 @@ public class Settings {
     private void performNoteReset(){
         int userId = CurrentUser.getCurrentUserId();
         Connection conn = DatabaseManager.getInstance().getConnection();
-        String sql = "DELETE FROM notes where user_id = ?";
+        String sql = "DELETE FROM DashNotes where userId = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, userId);
