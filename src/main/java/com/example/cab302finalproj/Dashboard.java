@@ -237,4 +237,41 @@ public class Dashboard {
         }
         return ""; // Return empty if no notes are found
     }
+
+    @FXML
+    private void handleSearch() {
+        String query = searchField.getText().toLowerCase();
+
+        if (query.isEmpty()) {
+            selectedLabel.setText("SELECTED: ");
+            currentlySelectedButton = null;
+            return;
+        }
+
+        Button bestMatch = null;
+
+        for (javafx.scene.Node node : buttonContainer.getChildren()) {
+            if (node instanceof Button button) {
+                String label = button.getText().toLowerCase();
+
+                // Check for startsWith match first
+                if (label.startsWith(query)) {
+                    bestMatch = button;
+                    break;
+                }
+
+                // If not found, check for contains match
+                if (bestMatch == null && label.contains(query)) {
+                    bestMatch = button;
+                }
+            }
+        }
+
+        if (bestMatch != null) {
+            // Set the selected button and update the label
+            selectedLabel.setText("SELECTED: " + bestMatch.getText());
+            currentlySelectedButton = bestMatch;
+            notesArea.setText(loadNotesFromDatabase(bestMatch.getText()));
+        }
+    }
 }
