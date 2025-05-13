@@ -33,6 +33,7 @@ public class History implements Initializable {
     private VBox weekPromptsContainer;
 
     private Prompt selectedPrompt;
+    private boolean searchActive = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -75,21 +76,21 @@ public class History implements Initializable {
         weekPromptsContainer.getChildren().clear();
 
         if (searchTerm.isEmpty()) {
+            searchActive = false;
             loadPrompts();
             return;
         }
 
+        searchActive = true;
+
         int userId = CurrentUser.getCurrentUserId();
-        if (userId == -1) {
-            showMessage("Please log in to search prompts");
-            return;
-        }
 
         List<Prompt> searchResults = PromptDAO.searchPrompts(userId, searchTerm);
 
         if (searchResults.isEmpty()) {
-            showMessage("No results found: '" + searchTerm + "'");
+            showMessage("No results");
         } else {
+
             displayPrompts(searchResults, recentPromptsContainer);
         }
     }

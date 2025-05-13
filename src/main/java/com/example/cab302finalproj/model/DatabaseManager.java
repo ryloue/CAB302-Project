@@ -35,7 +35,6 @@ public class DatabaseManager {
             try {
                 if (instance.connection == null || instance.connection.isClosed()) {
                     instance.connection = DriverManager.getConnection(DB_URL);
-                    System.out.println("Database connection reestablished.");
                 }
             } catch (SQLException e) {
                 System.err.println("Error checking connection state: " + e.getMessage());

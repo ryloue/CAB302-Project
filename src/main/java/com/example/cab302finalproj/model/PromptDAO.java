@@ -64,8 +64,6 @@ public class PromptDAO {
             pstmt.setInt(1, userId);
             pstmt.setString(2, "%" + searchTerm + "%");
 
-            System.out.println("Executing search query: " + pstmt); // Debug
-
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Prompt prompt = new Prompt(
@@ -83,7 +81,6 @@ public class PromptDAO {
             e.printStackTrace();
         }
 
-        System.out.println("Found " + prompts.size() + " results for: " + searchTerm);
         return prompts;
     }
 }
