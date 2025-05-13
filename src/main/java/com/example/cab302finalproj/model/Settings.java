@@ -2,10 +2,13 @@ package com.example.cab302finalproj.model;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import net.bytebuddy.asm.MemberSubstitution;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -16,6 +19,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class Settings {
 
@@ -28,18 +32,39 @@ public class Settings {
     private TextField passwordField;
 
     @FXML
-    private void changeTheme() {
-        // Placeholder for theme change logic
-    }
-
-    @FXML
-    private void notificationPreferences() {
-        // Placeholder for notification preferences logic
-    }
-
-    @FXML
     private void resetNotes() {
-        // Placeholder for reset notes logic
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Reset Notes");
+        confirm.setHeaderText("Are you sure you want to reset your notes");
+        confirm.setContentText("This action cannot be undone");
+
+        Optional<ButtonType> result = confirm.showAndWait();
+
+        if(result.isPresent() && result.get() == ButtonType.OK) {
+            performNoteReset();
+            showAlert(Alert.AlertType.INFORMATION, "Reset Successful", "Your Notes have been reset");
+        }else{
+            showAlert(Alert.AlertType.INFORMATION, "Cancelled","Note reset was cancelled");
+        }
+    }
+
+    private void performNoteReset(){
+        int userId = CurrentUser.getCurrentUserId();
+        Connection conn = DatabaseManager.getInstance().getConnection();
+        String sql = "DELETE FROM DashNotes where userId = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, userId);
+            int affectedRows = pstmt.executeUpdate();
+
+            if (affectedRows > 0) {
+                System.out.println("Notes Successfully deleted from User ID: " + userId);
+            } else {
+                System.out.println("No notes found to delete from userId: " + userId);
+            }
+        }catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Data Error", "Failed to reset notes: " + e.getMessage());
+        }
     }
 
     @FXML

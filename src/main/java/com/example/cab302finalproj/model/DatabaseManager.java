@@ -62,6 +62,18 @@ public class DatabaseManager {
             cfct.execute(createFlashcardTable);
         }
 
+        String createDashNotesTable =
+                "CREATE TABLE IF NOT EXISTS DashNotes (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        "userId INTEGER NOT NULL, " +
+                        "label TEXT NOT NULL, " +
+                        "FOREIGN KEY (userId) REFERENCES users(id)" +
+                        ")";
+
+        try (Statement stmt = connection.createStatement()) {
+            stmt.execute(createDashNotesTable);
+        }
+
     }
 
 

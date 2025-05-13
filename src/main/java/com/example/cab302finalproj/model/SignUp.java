@@ -24,7 +24,8 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-public class SignUp {
+public class
+SignUp {
     public Hyperlink Login_Link;
     public AnchorPane SignUpContent;
 
