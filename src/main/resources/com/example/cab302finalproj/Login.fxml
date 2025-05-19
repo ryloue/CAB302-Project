@@ -10,6 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.CheckBox?>
 <AnchorPane fx:id="LoginContent" prefHeight="423.0" prefWidth="600.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.model.Login">
    <children>
       <Pane layoutX="194.0" layoutY="37.0" prefHeight="308.0" prefWidth="211.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;">
@@ -36,6 +37,8 @@
                </font>
             </Text>
             <PasswordField fx:id="passwordField" layoutX="22.0" layoutY="133.0" onAction="#handleLogin" prefHeight="25.0" prefWidth="168.0" promptText="Enter Password" style="-fx-background-radius: 6;" />
+            <TextField fx:id="passwordVisibleField" layoutX="22.0" layoutY="133.0" prefHeight="25.0" prefWidth="168" style="-fx-background-radius: 6;" visible="false" managed="false"/>
+            <CheckBox fx:id="showPasswordCB" layoutX="22.0" layoutY="165.0" text="Show Password" textFill="#ffd500" onAction="#handleShowPassword" />
             <Button layoutX="59.0" layoutY="183.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="93.0" style="-fx-background-color: #FDC500;" text="Login">
                <font>
                   <Font name="System Bold" size="14.0" />
