@@ -3,10 +3,11 @@ module com.example.cab302finalproj {
     requires javafx.fxml;
     requires com.fasterxml.jackson.databind;
     requires java.desktop;
+    requires java.sql;
     requires org.apache.pdfbox;
     requires java.net.http;
-    requires com.google.gson;
-    requires java.sql;
+    requires net.bytebuddy;
+    requires java.mail;
 
     opens com.example.cab302finalproj to javafx.fxml;
     opens com.example.cab302finalproj.Modules to com.fasterxml.jackson.databind;
