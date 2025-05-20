@@ -15,7 +15,7 @@ public class API_AI {
                 .replace("\n", "\\n")
                 .replace("\r", "\\r");
     }
-    public static void Translate(String prompt) {
+    public static String Translate(String prompt) {
         String url = "http://127.0.0.1:11434/api/generate";
 //        String url = "http://10.88.50.7:11434/api/generate";
 
@@ -23,7 +23,7 @@ public class API_AI {
 
         String jsonBody = """
                 {
-                    "model": "tinyllama:1.1b",
+                    "model": "zephyr",
                     "prompt": "%s",
                     "stream": false
                 }
@@ -47,6 +47,7 @@ public class API_AI {
         }
 
         System.out.println(response.body());
+        return response.body();
     }
 
 
