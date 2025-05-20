@@ -13,7 +13,7 @@ public class UserDAO {
         String sql = "INSERT INTO users (email, password) VALUES (?, ?)";
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            pstmt.setString(1, email.toLowerCase()); // Normalize email to lowercase
+            pstmt.setString(1, email.toLowerCase()); // Normalise email to lowercase
             pstmt.setString(2, hashedPassword);
             int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {

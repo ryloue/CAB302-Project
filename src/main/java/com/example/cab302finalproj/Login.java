@@ -18,9 +18,6 @@ public class Login {
     @FXML
     private AnchorPane LoginContent;
 
-
-
-
     @FXML
     private void handleLinkClick() {
         try {

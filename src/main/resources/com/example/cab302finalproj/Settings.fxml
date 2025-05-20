@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.CheckBox?>
 <AnchorPane fx:id="SettingsContent" maxHeight="-Infinity" prefHeight="425.0" prefWidth="463.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.model.Settings">
    <children>
       <Pane layoutX="31.0" layoutY="41.0" prefHeight="341.0" prefWidth="402.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
@@ -34,6 +36,8 @@
                </font>
             </Button>
             <TextField fx:id="passwordField" layoutX="32.0" layoutY="122.0" prefHeight="50.0" prefWidth="400.0" promptText="Password" />
+            <TextField fx:id="passwordFieldVisible" layoutX="32.0" layoutY="122.0" prefHeight="50.0" prefWidth="400.0" promptText="Password" visible="false" managed="false" />
+            <CheckBox fx:id="showPassword" layoutX="32.0" layoutY="122.0" text="Show" textFill="white"/>
             <TextField fx:id="emailField" layoutX="32.0" layoutY="54.0" prefHeight="50.0" prefWidth="400.0" promptText="Email" />
             <Button fx:id="saveButton" layoutX="32.0" layoutY="188.0" onAction="#saveChanges" prefHeight="50.0" prefWidth="161.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;" text="Save" textFill="WHITE">
                <font>

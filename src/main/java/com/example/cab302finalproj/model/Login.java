@@ -12,13 +12,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+import javafx.scene.control.CheckBox;
 
+import java.awt.*;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+
 
 public class Login {
 
@@ -31,7 +34,13 @@ public class Login {
     public TextField emailField;
 
     @FXML
-    public PasswordField passwordField;
+    private PasswordField passwordField;
+
+    @FXML
+    private TextField passwordVisibleField;
+
+    @FXML
+    private CheckBox showPasswordCB;
 
     @FXML
     private void handleForgotPassword() {
@@ -41,6 +50,20 @@ public class Login {
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Error loading ForgotPassword FXML", e);
         }
+    }
+
+    @FXML
+    public void initialize(){
+        passwordVisibleField.textProperty().bindBidirectional(passwordField.textProperty());
+        passwordVisibleField.managedProperty().bind(passwordVisibleField.visibleProperty());
+        passwordVisibleField.setStyle(passwordField.getStyle());
+    }
+
+    @FXML
+    private void handleShowPassword(ActionEvent event){
+        boolean show = showPasswordCB.isSelected();
+        passwordVisibleField.setVisible(show);
+        passwordField.setVisible(!show);
     }
 
     @FXML
@@ -57,7 +80,6 @@ public class Login {
                 return;
             }
 
-            // Authenticate user using SQLite database
             try {
                 boolean loginSuccess = UserDAO.authenticateUser(email, password);
 
@@ -108,12 +130,6 @@ public class Login {
         }
     }
 
-    /**
-     * Shows an alert dialog
-     * @param type The alert type (error, information, etc.)
-     * @param title The alert title
-     * @param message The alert message
-     */
 
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
