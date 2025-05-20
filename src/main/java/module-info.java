@@ -7,6 +7,7 @@ module com.example.cab302finalproj {
     requires java.net.http;
     requires net.bytebuddy;
     requires java.mail;
+    requires java.sql;
     requires com.google.gson;
 
     opens com.example.cab302finalproj to javafx.fxml;
