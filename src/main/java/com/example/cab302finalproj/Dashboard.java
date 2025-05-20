@@ -78,7 +78,7 @@ public class Dashboard {
             return;
         }
 
-        String buttonLabel = "Button " + buttonCount++;
+        String buttonLabel = "note " + buttonCount++;
         Button newButton = createButtonWithRenameSupport(buttonLabel);
 
         buttonContainer.getChildren().add(newButton);
