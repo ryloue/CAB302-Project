@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="632.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.History">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="632.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.History">
    <children>
       <Pane layoutX="70.0" layoutY="65.0" prefHeight="295.0" prefWidth="431.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
          <opaqueInsets>
@@ -38,7 +38,7 @@
                                  <image>
                                     <Image url="@../../../images/search.png" />
                                  </image></ImageView>
-                              <TextField prefHeight="33.0" prefWidth="83.0" promptText="Search" style="-fx-border-width: 0; -fx-background-color: transparent;" />
+                              <TextField fx:id="searchField" prefHeight="33.0" prefWidth="83.0" promptText="Search" style="-fx-border-width: 0; -fx-background-color: transparent;" />
                               <ImageView fitHeight="31.0" fitWidth="32.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
                         </HBox>
@@ -65,7 +65,7 @@
                         </Label>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="66.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@../../../style.css">
                            <content>
-                              <VBox prefHeight="77.0" prefWidth="140.0" spacing="5.0" style="-fx-background: false;">
+                              <VBox fx:id="recentPromptsContainer" prefHeight="77.0" prefWidth="140.0" spacing="5.0" style="-fx-background: false;">
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #ffd500; -fx-background-radius: 10;" text="Label" />
                                  </children>
@@ -82,7 +82,7 @@
                         </Label>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="66.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@../../../style.css">
                            <content>
-                              <VBox prefHeight="77.0" prefWidth="123.0" spacing="5.0" style="-fx-background: false;" stylesheets="@../../../style.css">
+                              <VBox fx:id="weekPromptsContainer" prefHeight="77.0" prefWidth="123.0" spacing="5.0" style="-fx-background: false;" stylesheets="@../../../style.css">
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #ffd500; -fx-background-radius: 10;" text="Label" />
                                  </children>
