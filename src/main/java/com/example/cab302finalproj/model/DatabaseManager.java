@@ -16,10 +16,8 @@ public class DatabaseManager {
 
     private DatabaseManager() {
         try {
-            // Create and initialize the database connection
             connection = DriverManager.getConnection(DB_URL);
 
-            // Create tables if they don't exist
             initializeDatabase();
 
             System.out.println("Database connection established successfully.");
@@ -33,7 +31,17 @@ public class DatabaseManager {
     public static synchronized DatabaseManager getInstance() {
         if (instance == null) {
             instance = new DatabaseManager();
+        } else {
+            try {
+                if (instance.connection == null || instance.connection.isClosed()) {
+                    instance.connection = DriverManager.getConnection(DB_URL);
+                }
+            } catch (SQLException e) {
+                System.err.println("Error checking connection state: " + e.getMessage());
+                e.printStackTrace();
+            }
         }
+
         return instance;
     }
 
@@ -81,6 +89,16 @@ public class DatabaseManager {
 
 
     public Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(DB_URL);
+                System.out.println("Database connection reestablished in getConnection().");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting database connection: " + e.getMessage());
+            e.printStackTrace();
+        }
+
         return connection;
     }
 
