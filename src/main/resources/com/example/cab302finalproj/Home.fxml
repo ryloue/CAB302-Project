@@ -30,7 +30,7 @@
    </Text>
    <Pane layoutX="20.0" layoutY="261.0" prefHeight="89.0" prefWidth="558.0" style="-fx-background-color: FDC500; -fx-border-color: black;">
 
-         <ComboBox fx:id="languageComboBox" layoutX="179.0" layoutY="19.0" prefHeight="51.0" prefWidth="200.0" promptText="Select Language" style="-fx-background-color: #5C0099;" stylesheets="@../../../style.css" />
+         <ComboBox fx:id="languageComboBox" onAction="#Translate" layoutX="179.0" layoutY="19.0" prefHeight="51.0" prefWidth="200.0" promptText="Select Language" style="-fx-background-color: #5C0099;" stylesheets="@../../../style.css" />
 
          <Button onAction="#handlePreview" layoutX="23.0" layoutY="24.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Preview" textFill="WHITE">
             <font>

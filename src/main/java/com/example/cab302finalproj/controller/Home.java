@@ -3,12 +3,17 @@ package com.example.cab302finalproj.controller;
 
 import com.example.cab302finalproj.HelloApplication;
 import com.example.cab302finalproj.Modules.Language;
+import com.example.cab302finalproj.model.API_AI;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 
@@ -17,7 +22,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -39,7 +46,9 @@ public class Home implements Initializable {
     private final FileChooser.ExtensionFilter ex4 = new FileChooser.ExtensionFilter("Excel File", "*.csv");
     @FXML
     private Label fileNameLabel;
-
+    private File selectedFile;
+    @FXML
+    private Label loadingLabel;
     @FXML
     StringBuilder File_Content = new StringBuilder();
     @FXML
@@ -99,6 +108,7 @@ public class Home implements Initializable {
     public void handleUpload(ActionEvent event) {
         File_Content.setLength(0);
         File file = fileChooser.showOpenDialog(new Stage());
+        selectedFile = file;
         if (file != null) {  // Check if user didn't cancel the dialog
             try {
                 fileNameLabel.setText(file.getName());
@@ -146,7 +156,7 @@ public class Home implements Initializable {
             try {
                 // Get the first file (you can loop through all files if needed)
                 File file = dragboard.getFiles().getFirst();
-
+                selectedFile = file;
                 // Update the label with file name
                 fileNameLabel.setText(file.getName());
 
@@ -210,5 +220,117 @@ public class Home implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static class TranslationResponse {
+        String response;
+        boolean done;
+        String done_reason;
+        // add other fields if needed
+    }
+
+
+    //    public void Translate() {
+//        try {
+//
+//            String prompt = String.format("""
+//                    You are a translation assistant.
+//
+//                    Translate the following text to %s:
+//
+//                    "%s"
+//                    """, languageComboBox.getValue(), File_Content);
+//
+//
+//
+//            String json = API_AI.Translate(prompt); // the raw JSON
+//            Gson gson = new Gson();
+//            TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
+//            String translatedText = result.response;
+//            System.out.println(translatedText);
+//
+//
+//            // Load the FXML using the same controller
+//            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
+//            Scene scene = new Scene(loader.load());
+//
+//
+//            previewTextArea.setText(translatedText);
+//
+//            // Show in a popup
+//            Stage previewStage = new Stage();
+//            previewStage.setTitle("File Preview");
+//            previewStage.setScene(scene);
+//            previewStage.show();
+//
+//            System.out.println(translatedText);
+//
+//
+//
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+// Show loading popup
+    public void Translate() {
+        Stage loadingStage = new Stage();
+        VBox loadingBox = new VBox(10);
+        loadingBox.setAlignment(Pos.CENTER);
+        loadingBox.setPadding(new Insets(20));
+        loadingBox.getChildren().add(new Label("Translating, please wait..."));
+        Scene loadingScene = new Scene(loadingBox, 250, 100);
+        loadingStage.setScene(loadingScene);
+        loadingStage.setTitle("Loading");
+        loadingStage.initModality(Modality.APPLICATION_MODAL);
+        loadingStage.show();
+
+        // Run translation in background thread
+        new Thread(() -> {
+            try {
+                String prompt = String.format("""
+                        You are a translation assistant.
+                        
+                        Translate the following text to %s:
+                        
+                        "%s"
+                        """, languageComboBox.getValue(), File_Content);
+
+                String json = API_AI.Translate(prompt);
+                Gson gson = new Gson();
+                TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
+                String translatedText = result.response;
+
+                // JavaFX operations must be on FX thread
+                Platform.runLater(() -> {
+                    try {
+                        // Load FXML and controller
+                        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
+                        Scene scene = new Scene(loader.load());
+
+                        // Get controller and set text
+                        previewTextArea.setText(translatedText);  // <- use setter
+
+                        // Close loader popup
+                        loadingStage.close();
+
+                        // Show preview popup
+                        Stage previewStage = new Stage();
+                        previewStage.setTitle("File Preview");
+                        previewStage.setScene(scene);
+                        previewStage.show();
+
+                        System.out.println(translatedText);
+                    } catch (Exception e) {
+                        loadingStage.close();
+                        e.printStackTrace();
+                    }
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(loadingStage::close);
+                e.printStackTrace();
+            }
+        }).start();
     }
 }

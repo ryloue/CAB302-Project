@@ -8,17 +8,26 @@ import java.net.http.HttpResponse;
 
 public class API_AI {
     private HttpClient client = HttpClient.newHttpClient();
+    public static String escapeJson(String text) {
+        return text
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
+                .replace("\r", "\\r");
+    }
+    public static String Translate(String prompt) {
+        String url = "http://127.0.0.1:11434/api/generate";
+//        String url = "http://10.88.50.7:11434/api/generate";
 
-    public void TalktoAI(String prompt) {
-        String url = "http://10.88.50.7:11434/api/generate";
+        String escapedPrompt = escapeJson(prompt);  // Escape problematic characters
 
         String jsonBody = """
                 {
-                    "model": "gemma3:1b",
+                    "model": "zephyr",
                     "prompt": "%s",
                     "stream": false
                 }
-                """.formatted(prompt);
+                """.formatted(escapedPrompt);
 
         HttpClient client = HttpClient.newHttpClient();
 
@@ -38,13 +47,8 @@ public class API_AI {
         }
 
         System.out.println(response.body());
+        return response.body();
     }
 
-    public static void main(String[] args) {
-        API_AI obj = new API_AI();
-        obj.TalktoAI("what's my name");
 
-
-    }
 }
-
