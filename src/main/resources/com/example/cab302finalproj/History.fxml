@@ -29,6 +29,13 @@
                      <opaqueInsets>
                         <Insets bottom="102.0" top="102.0" />
                      </opaqueInsets>
+                     <children>
+                        <ScrollPane fx:id="scrollLabelPane" prefHeight="180.0" prefWidth="210.0" fitToWidth="true">
+                           <content>
+                              <Label fx:id="scrollLabel" alignment="TOP_LEFT" wrapText="true" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308" />
+                           </content>
+                        </ScrollPane>
+                     </children>
                   </Pane>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="7.0" prefHeight="32.0" prefWidth="292.0" spacing="15.0">
                      <children>

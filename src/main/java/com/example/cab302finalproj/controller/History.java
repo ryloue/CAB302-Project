@@ -35,9 +35,29 @@ public class History implements Initializable {
     private Prompt selectedPrompt;
     private boolean searchActive = false;
 
+    @FXML
+    private ScrollPane scrollLabelPane;
+
+    @FXML
+    private Label scrollLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadPrompts();
+
+        scrollLabelPane.setStyle("""
+            -fx-background: transparent;
+            -fx-background-color: transparent;
+            -fx-background-insets: 0;
+            -fx-padding: 0;
+        """);
+
+        scrollLabel.setStyle("""
+            -fx-text-fill: black;
+        """);
+
+        scrollLabelPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollLabelPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             searchPrompts(newValue.trim());
@@ -117,19 +137,15 @@ public class History implements Initializable {
     }
 
     private void showPromptDetails(Prompt prompt) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Prompt Details");
-        alert.setHeaderText("Prompt from " + prompt.getCreatedAt());
+        scrollLabel.setStyle("""
+            -fx-text-fill: black !important;
+            -fx-font-size: 14px;
+            -fx-padding: 10px;
+            -fx-background-color: transparent;
+        """);
 
-        TextArea textArea = new TextArea();
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
-        textArea.setText("User Prompt: " + prompt.getPromptText() + "\n\nAI Response: " + prompt.getResponseText());
+        scrollLabel.setText("AI Response:\n" + prompt.getResponseText());
 
-        alert.getDialogPane().setContent(textArea);
-        alert.getDialogPane().setMinHeight(300);
-        alert.getDialogPane().setMinWidth(500);
-
-        alert.showAndWait();
+        scrollLabelPane.setVisible(true);
     }
 }
