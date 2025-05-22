@@ -20,7 +20,7 @@
             <Insets bottom="102.0" top="102.0" />
          </opaqueInsets>
          <children>
-            <Pane layoutX="18.0" layoutY="15.0" prefHeight="265.0" prefWidth="397.0" style="-fx-background-color: FDC500; -fx-background-radius: 10;">
+            <Pane layoutX="9.0" layoutY="9.0" prefHeight="280.0" prefWidth="413.0" style="-fx-background-color: FDC500; -fx-background-radius: 10;">
                <opaqueInsets>
                   <Insets bottom="102.0" top="102.0" />
                </opaqueInsets>
@@ -29,6 +29,13 @@
                      <opaqueInsets>
                         <Insets bottom="102.0" top="102.0" />
                      </opaqueInsets>
+                     <children>
+                        <ScrollPane fx:id="scrollLabelPane" prefHeight="180.0" prefWidth="210.0" fitToWidth="true">
+                           <content>
+                              <Label fx:id="scrollLabel" alignment="TOP_LEFT" wrapText="true" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308" />
+                           </content>
+                        </ScrollPane>
+                     </children>
                   </Pane>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="7.0" prefHeight="32.0" prefWidth="292.0" spacing="15.0">
                      <children>
@@ -82,7 +89,7 @@
                         </Label>
                         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="66.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-background: transparent;" stylesheets="@../../../style.css">
                            <content>
-                              <VBox fx:id="weekPromptsContainer" prefHeight="77.0" prefWidth="123.0" spacing="5.0" style="-fx-background: false;" stylesheets="@../../../style.css">
+                              <VBox fx:id="weekPromptsContainer" prefHeight="65.0" prefWidth="111.0" spacing="5.0" style="-fx-background: false;" stylesheets="@../../../style.css">
                                  <children>
                                     <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" style="-fx-background-color: #ffd500; -fx-background-radius: 10;" text="Label" />
                                  </children>
