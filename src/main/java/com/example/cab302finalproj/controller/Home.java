@@ -4,6 +4,8 @@ package com.example.cab302finalproj.controller;
 import com.example.cab302finalproj.HelloApplication;
 import com.example.cab302finalproj.Modules.Language;
 import com.example.cab302finalproj.model.API_AI;
+import com.example.cab302finalproj.model.CurrentUser;
+import com.example.cab302finalproj.model.PromptDAO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -316,7 +318,7 @@ public class Home implements Initializable {
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;
-
+                PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), File_Content.toString(), translatedText);
                 Platform.runLater(() -> {
                     try {
                         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
