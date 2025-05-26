@@ -27,7 +27,7 @@ public class API_AI {
                     "prompt": "%s",
                     "stream": false
                 }
-                """.formatted(escapedPrompt); // change the model name to zephyr if you want latest result
+                """.formatted(escapedPrompt); // change the model name to zephyr or tinyllama:1.1b
 
         HttpClient client = HttpClient.newHttpClient();
 

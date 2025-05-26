@@ -1,16 +1,25 @@
 package com.example.cab302finalproj.controller;
 
 import com.example.cab302finalproj.MainLayout;
+import com.example.cab302finalproj.model.API_AI;
 import com.example.cab302finalproj.model.CurrentUser;
 import com.example.cab302finalproj.model.DatabaseManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Flashcards {
@@ -25,6 +34,122 @@ public class Flashcards {
     private Text backCardText;
     @FXML
     private Text frontCardText;
+    @FXML
+    public Text FrontText;
+    @FXML
+    public Text BackText;
+    private List<String> flashcards = new ArrayList<>();
+    private int currentIndex = 0;
+
+    @FXML
+    private MenuButton notesMenuButton; // Add fx:id in FXML for this
+
+    public void initialize() {
+        try {
+            populateNotesMenu();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void populateNotesMenu() throws SQLException {
+        int userId = CurrentUser.getCurrentUserId();
+        Connection conn = DatabaseManager.getInstance().getConnection();
+        String sql = "SELECT * FROM DashNotes WHERE userId = ?";
+
+        try (PreparedStatement statement = DatabaseManager.getInstance().getConnection().prepareStatement(sql)) {
+        System.out.println("called");
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                String titleNote = rs.getString("label");
+                String notes = rs.getString("notes");
+
+                MenuItem item = new MenuItem(titleNote);
+                item.setOnAction(event -> {
+                    try {
+                        generateFlashcardsFromNote(notes);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                notesMenuButton.getItems().add(item);
+            }
+        }
+    }
+
+
+    private void generateFlashcardsFromNote(String notes) {
+        new Thread(() -> {
+            try {
+                String prompt = "Generate flashcards with maximum 30 words answer from the following note:\n\n" + notes;
+                String response = API_AI.Call_Ai(prompt);
+
+                // Simple parsing assumption (replace with GSON logic if AI response is JSON structured)
+                Platform.runLater(() -> {
+                    updateFlashcardUI(response);
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+
+    private void updateFlashcardUI(String aiResponse) {
+        // Parse the JSON
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(aiResponse, JsonObject.class);
+        String generatedText = jsonObject.get("response").getAsString();
+
+        // Split by double newline to separate each flashcard
+        flashcards = Arrays.asList(generatedText.split("\\n\\n"));
+        currentIndex = 0;
+
+        showFlashcard(currentIndex);
+    }
+    private void showFlashcard(int index) {
+        if (flashcards.isEmpty() || index < 0 || index >= flashcards.size()) return;
+
+        String card = flashcards.get(index);
+        String[] lines = card.split("\\n", 2);
+        if (lines.length == 2) {
+            String title = lines[0].replaceFirst("Flashcard \\d+: ", "").trim();
+            String content = lines[1].replaceFirst("^-\\s*", "").trim();
+
+            frontCardText.setText("");
+            FrontText.setText(title);
+            backCardText.setText("");
+            BackText.setText(content);
+        } else {
+            frontCardText.setText("");
+            FrontText.setText("Malformed flashcard");
+            backCardText.setText("");
+            BackText.setText(card);
+        }
+
+        frontCard.setVisible(true);
+        backCard.setVisible(false);
+    }
+
+    @FXML
+    private void nextCard() {
+        if (currentIndex < flashcards.size() - 1) {
+            currentIndex++;
+            showFlashcard(currentIndex);
+        }
+    }
+
+    @FXML
+    private void previousCards() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showFlashcard(currentIndex);
+        }
+    }
+
 
     public void selectNote() throws SQLException {
         int userId = CurrentUser.getCurrentUserId();
@@ -106,7 +231,5 @@ public class Flashcards {
 
 
     }
-    public void previousCards() {
 
-    }
 }
