@@ -1,7 +1,10 @@
 package com.example.cab302finalproj;
 
+import com.example.cab302finalproj.model.API_AI;
 import com.example.cab302finalproj.model.CurrentUser;
 import com.example.cab302finalproj.model.DatabaseManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -17,6 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Dashboard {
+    private String previousNotes = null;
+    public TextArea promptText;
+
 
     private Button createButtonWithRenameSupport(String label) {
         Button button = new Button(label);
@@ -86,6 +92,50 @@ public class Dashboard {
         // Save to database
         saveButtonToDatabase(buttonLabel);
     }
+
+    @FXML
+    public void handleGenerateNotes() {
+        String input = promptText.getText().trim();
+        if (input.isEmpty()) {
+            System.out.println("Prompt text is empty.");
+            return;
+        }
+
+        // Save current notes for undo
+        previousNotes = notesArea.getText();
+
+        try {
+            // Call AI API
+            String aiResponse = API_AI.Call_Ai(input);
+
+            // Parse the JSON response using Gson
+            Gson gson = new Gson();
+            JsonObject jsonObject = gson.fromJson(aiResponse, JsonObject.class);
+
+            if (jsonObject.has("response")) {
+                String generatedText = jsonObject.get("response").getAsString();
+                notesArea.setText(generatedText);
+                System.out.println("Generated notes using AI.");
+            } else {
+                System.out.println("AI response did not contain a 'response' field.");
+            }
+        } catch (Exception e) {
+            System.err.println("Failed to generate notes: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleUndoGenerate() {
+        if (previousNotes != null) {
+            notesArea.setText(previousNotes);
+            previousNotes = null;
+            System.out.println("Reverted to previous notes.");
+        } else {
+            System.out.println("Nothing to undo.");
+        }
+    }
+
 
     private void renameButton(Button button, MouseEvent event) {
         TextField renamer = new TextField(button.getText());
