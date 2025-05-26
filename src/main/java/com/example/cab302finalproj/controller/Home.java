@@ -254,7 +254,7 @@ public class Home implements Initializable {
                 "%s"
                 """,  File_Content);
 
-                String json = API_AI.Translate(prompt);
+                String json = API_AI.Call_Ai(prompt);
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;
@@ -314,7 +314,7 @@ public class Home implements Initializable {
                 "%s"
                 """, languageComboBox.getValue(), File_Content);
 
-                String json = API_AI.Translate(prompt);
+                String json = API_AI.Call_Ai(prompt);
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;

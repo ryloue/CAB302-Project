@@ -15,7 +15,7 @@ public class API_AI {
                 .replace("\n", "\\n")
                 .replace("\r", "\\r");
     }
-    public static String Translate(String prompt) {
+    public static String Call_Ai(String prompt) {
         String url = "http://127.0.0.1:11434/api/generate";
 //        String url = "http://10.88.50.7:11434/api/generate";
 

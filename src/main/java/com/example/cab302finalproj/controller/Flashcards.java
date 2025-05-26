@@ -29,7 +29,7 @@ public class Flashcards {
     public void selectNote() throws SQLException {
         int userId = CurrentUser.getCurrentUserId();
         Connection conn = DatabaseManager.getInstance().getConnection();
-        String sql = "SELECT titleNote, notes FROM flashcards WHERE fromID = ?";
+        String sql = "SELECT titleNo, notes FROM flashcards WHERE fromID = ?";
         try(PreparedStatement statement = conn.prepareStatement(sql)){
             statement.setInt(1, userId);
             try(ResultSet rs = statement.executeQuery()){
