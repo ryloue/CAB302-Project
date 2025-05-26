@@ -37,7 +37,7 @@
                <Font size="20.0" />
             </font>
          </Button>
-         <Button layoutX="405.0" layoutY="24.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Summarise" textFill="WHITE">
+         <Button layoutX="405.0" layoutY="24.0" onAction="#Summerise" mnemonicParsing="false" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Summarise" textFill="WHITE">
             <font>
                <Font size="20.0" />
             </font>

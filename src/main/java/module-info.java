@@ -17,4 +17,5 @@ module com.example.cab302finalproj {
     opens com.example.cab302finalproj.model to javafx.fxml;
     exports com.example.cab302finalproj.controller;
     opens com.example.cab302finalproj.controller to javafx.fxml;
+
 }
