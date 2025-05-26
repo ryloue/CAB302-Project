@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="508.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="475.0" prefWidth="508.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.Home">
 
-      <TextArea fx:id="previewTextArea" disable="true" editable="false" layoutX="11.0" layoutY="12.0" prefHeight="452.0" prefWidth="486.0" style="-fx-background-color: #fcfcfc;" wrapText="true" />
+      <ScrollPane layoutX="11.0" layoutY="12.0" prefHeight="452.0" prefWidth="486.0" style="-fx-background-color:#FFD500;">
+            <content>
+                  <TextArea fx:id="previewTextArea" disable="true" editable="false" prefHeight="447.0" prefWidth="478.0" style="-fx-background-color: black;" wrapText="true">
+            <font>
+               <Font name="System Bold" size="13.0" />
+            </font></TextArea>
+            </content>
+      </ScrollPane>
+
       <Label fx:id="loadingLabel" style="-fx-text-fill: #0080ff;" />
-      <ScrollBar blendMode="COLOR_DODGE" layoutX="480.0" layoutY="18.0" orientation="VERTICAL" prefHeight="442.0" prefWidth="14.0" />
 </Pane>

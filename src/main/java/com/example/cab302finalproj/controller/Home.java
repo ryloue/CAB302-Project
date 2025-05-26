@@ -225,56 +225,73 @@ public class Home implements Initializable {
     }
 
     public static class TranslationResponse {
-        String response;
-        boolean done;
-        String done_reason;
+        public String response;
+        public boolean done;
+        public String done_reason;
         // add other fields if needed
     }
 
 
-    //    public void Translate() {
-//        try {
-//
-//            String prompt = String.format("""
-//                    You are a translation assistant.
-//
-//                    Translate the following text to %s:
-//
-//                    "%s"
-//                    """, languageComboBox.getValue(), File_Content);
-//
-//
-//
-//            String json = API_AI.Translate(prompt); // the raw JSON
-//            Gson gson = new Gson();
-//            TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
-//            String translatedText = result.response;
-//            System.out.println(translatedText);
-//
-//
-//            // Load the FXML using the same controller
-//            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
-//            Scene scene = new Scene(loader.load());
-//
-//
-//            previewTextArea.setText(translatedText);
-//
-//            // Show in a popup
-//            Stage previewStage = new Stage();
-//            previewStage.setTitle("File Preview");
-//            previewStage.setScene(scene);
-//            previewStage.show();
-//
-//            System.out.println(translatedText);
-//
-//
-//
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-// Show loading popup
+
+
+    public void Summerise() {
+        Stage loadingStage = new Stage();
+        VBox loadingBox = new VBox(10);
+        loadingBox.setAlignment(Pos.CENTER);
+        loadingBox.setPadding(new Insets(20));
+        loadingBox.getChildren().add(new Label("Summarising, please wait..."));
+        Scene loadingScene = new Scene(loadingBox, 250, 100);
+        loadingStage.setScene(loadingScene);
+        loadingStage.setTitle("Loading");
+        loadingStage.initModality(Modality.APPLICATION_MODAL);
+        loadingStage.show();
+
+        new Thread(() -> {
+            try {
+                String prompt = String.format("""
+                        You are a summarization assistant.
+                        Summarize the following text :
+                "%s"
+                """,  File_Content);
+
+                String json = API_AI.Translate(prompt);
+                Gson gson = new Gson();
+                TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
+                String translatedText = result.response;
+
+                Platform.runLater(() -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
+                        Scene scene = new Scene(loader.load());
+
+                        // Get controller from loaded FXML
+                        Home controller = loader.getController();
+                        controller.previewTextArea.setText(translatedText);  // Set translated text
+
+                        loadingStage.close();
+
+                        Stage previewStage = new Stage();
+                        previewStage.setTitle("Summerised File Preview");
+                        previewStage.setScene(scene);
+                        previewStage.show();
+                    } catch (IOException e) {
+                        loadingStage.close();
+                        e.printStackTrace();
+                    }
+                });
+
+            } catch (Exception e) {
+                Platform.runLater(loadingStage::close);
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+
+
+
+
+
     public void Translate() {
         Stage loadingStage = new Stage();
         VBox loadingBox = new VBox(10);
@@ -287,46 +304,37 @@ public class Home implements Initializable {
         loadingStage.initModality(Modality.APPLICATION_MODAL);
         loadingStage.show();
 
-        // Run translation in background thread
         new Thread(() -> {
             try {
                 String prompt = String.format("""
-                        You are a translation assistant.
-                        
-                        Translate the following text to %s:
-                        
-                        "%s"
-                        """, languageComboBox.getValue(), File_Content);
+                You are a translation assistant.
+                
+                Translate the following text to %s:
+                
+                "%s"
+                """, languageComboBox.getValue(), File_Content);
 
                 String json = API_AI.Translate(prompt);
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;
-
-                // Save prompt and response to DB
                 PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), File_Content.toString(), translatedText);
-
-                // JavaFX operations must be on FX thread
                 Platform.runLater(() -> {
                     try {
-                        // Load FXML and controller
                         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
                         Scene scene = new Scene(loader.load());
 
-                        // Get controller and set text
-                        previewTextArea.setText(translatedText);  // <- use setter
+                        // Get controller from loaded FXML
+                        Home controller = loader.getController();
+                        controller.previewTextArea.setText(translatedText);  // Set translated text
 
-                        // Close loader popup
                         loadingStage.close();
 
-                        // Show preview popup
                         Stage previewStage = new Stage();
-                        previewStage.setTitle("File Preview");
+                        previewStage.setTitle("Translated File Preview");
                         previewStage.setScene(scene);
                         previewStage.show();
-
-                        System.out.println(translatedText);
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         loadingStage.close();
                         e.printStackTrace();
                     }
@@ -338,4 +346,5 @@ public class Home implements Initializable {
             }
         }).start();
     }
+
 }
