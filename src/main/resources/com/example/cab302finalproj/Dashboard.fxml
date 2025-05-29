@@ -14,10 +14,15 @@
       <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is dashboard" />
       <Pane layoutX="23.0" layoutY="98.0" prefHeight="277.0" prefWidth="391.0" style="-fx-background-color: var(--primary); -fx-background-radius: 10;">
          <children>
-            <TextArea fx:id="notesArea" layoutX="17.0" layoutY="19.0" prefHeight="240.0" prefWidth="356.0" style="-fx-background-color: #FDC500;" text="Notes section: add your notes here &#10;1. click add more button to add a notes file&#10;2. double click the note file to change the name&#10;3. enter your notes in the this box &#10;4. click the save button to save your notes" wrapText="true" />
+            <TextArea fx:id="notesArea" layoutY="19.0" prefHeight="240.0" prefWidth="356.0" style="-fx-background-color: #FDC500;" text="Notes section: add your notes here &#10;1. click add more button to add a notes file&#10;2. double click the note file to change the name&#10;3. enter your notes in the this box &#10;4. click the save button to save your notes" wrapText="true" />
+            <Button fx:id="GenerateButton" layoutX="94.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleGenerateNotes" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Generate">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
-      <HBox fx:id="buttonContainer" layoutX="22.0" layoutY="65.0" spacing="10.0">
+      <HBox fx:id="buttonContainer" layoutX="14.0" layoutY="66.0" spacing="10.0">
          <children>
             <Button fx:id="addMoreButton" mnemonicParsing="false" onAction="#handleAddMore" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Add More">
                <font>
@@ -26,8 +31,8 @@
             </Button>
          </children>
       </HBox>
-      <TextField fx:id="searchField" layoutX="22.0" layoutY="25.0" onKeyReleased="#handleSearch" promptText="Search" />
-      <Pane layoutX="204.0" layoutY="19.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FDC500; -fx-background-radius: 5;">
+      <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" onKeyReleased="#handleSearch" promptText="Search" />
+      <Pane layoutX="172.0" layoutY="14.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FDC500; -fx-background-radius: 5;">
          <children>
             <Text fx:id="selectedLabel" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECTED:">
                <font>
@@ -36,27 +41,22 @@
             </Text>
          </children>
       </Pane>
-      <Button fx:id="SaveButton" layoutX="332.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleSaveNotes" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Save">
+      <Button fx:id="DeleteButton" layoutX="23.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleDeleteSelected" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #E03A3C; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="DeleteButton" layoutX="39.0" layoutY="369.0" mnemonicParsing="false" onAction="#handleDeleteSelected" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #E03A3C; -fx-background-radius: 10;" text="Delete" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="GenerateButton" onAction="#handleGenerateNotes" layoutX="131.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Generate">
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Button>
-      <TextArea fx:id="promptText" layoutX="414.0" layoutY="19.0" prefHeight="346.0" prefWidth="167.0" promptText="Enter Prompt for precise Note or Click on Generate" style="-fx-border-radius: 20;" wrapText="true">
+      <TextArea fx:id="promptText" layoutX="394.0" layoutY="14.0" prefHeight="346.0" prefWidth="167.0" promptText="Enter Prompt for precise Note or Click on Generate" style="-fx-border-radius: 20;" wrapText="true">
          <font>
             <Font name="System Italic" size="13.0" />
          </font>
       </TextArea>
-      <Button fx:id="UndoGenerate" layoutX="219.0" onAction="#handleUndoGenerate" layoutY="368.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Undo Generate">
+      <Button fx:id="UndoGenerate" layoutX="209.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleUndoGenerate" prefHeight="26.0" prefWidth="106.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Undo Generate">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="SaveButton" layoutX="327.0" layoutY="362.0" mnemonicParsing="false" onAction="#handleSaveNotes" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Save">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
