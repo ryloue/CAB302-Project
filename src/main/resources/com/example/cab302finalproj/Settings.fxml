@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="SettingsContent" maxHeight="-Infinity" prefHeight="400.0" prefWidth="609.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.model.Settings">
    <children>
-      <Pane layoutX="91.0" layoutY="42.0" prefHeight="341.0" prefWidth="402.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
+      <Pane layoutX="103.0" layoutY="42.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="341.0" prefWidth="402.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
          <children>
             <Pane layoutX="14.0" layoutY="13.0" prefHeight="296.0" prefWidth="375.0" style="-fx-background-color: #FFD500; -fx-background-radius: 12;">
                <children>
