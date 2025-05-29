@@ -8,42 +8,42 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.Home">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="609.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.Home">
 
 
-   <Button fx:id="uploadButton" layoutX="236.0" layoutY="167.0" onAction="#handleUpload" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #FDC500;" text="Upload File">
+   <Button fx:id="uploadButton" layoutX="240.0" layoutY="178.0" onAction="#handleUpload" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #FDC500;" text="Upload File">
       <font>
          <Font name="System Bold" size="18.0" />
       </font></Button>
-   <Pane layoutX="21.0" layoutY="22.0" prefHeight="103.0" prefWidth="558.0" style="-fx-background-color: FDC500; -fx-border-color: black;">
+   <Pane layoutX="41.0" layoutY="37.0" prefHeight="103.0" prefWidth="526.0" style="-fx-background-color: FDC500; -fx-border-color: black;">
 
-         <Label fx:id="DNDLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="29.0" layoutY="16.0" onDragDropped="#dropFile" onDragOver="#dragFile" prefHeight="66.0" prefWidth="500.0" style="-fx-border-color: #5C0099; -fx-background-color: #FFD500; -fx-padding: 20;" text="Drag and drop a file here">
+         <Label fx:id="DNDLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="13.0" layoutY="15.0" onDragDropped="#dropFile" onDragOver="#dragFile" prefHeight="66.0" prefWidth="500.0" style="-fx-border-color: #5C0099; -fx-background-color: #FFD500; -fx-padding: 20;" text="Drag and drop a file here">
             <font>
                <Font name="System Bold" size="20.0" />
             </font>
          </Label>
    </Pane>
-   <Text fill="#fdc500" layoutX="287.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR">
+   <Text fill="#fdc500" layoutX="292.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OR">
       <font>
          <Font name="System Bold" size="18.0" />
       </font>
    </Text>
-   <Pane layoutX="20.0" layoutY="261.0" prefHeight="89.0" prefWidth="558.0" style="-fx-background-color: FDC500; -fx-border-color: black;">
+   <Pane layoutX="41.0" layoutY="270.0" prefHeight="89.0" prefWidth="526.0" style="-fx-background-color: FDC500; -fx-border-color: black;">
 
-         <ComboBox fx:id="languageComboBox" onAction="#Translate" layoutX="179.0" layoutY="19.0" prefHeight="51.0" prefWidth="200.0" promptText="Select Language" style="-fx-background-color: #5C0099;" stylesheets="@../../../style.css" />
+         <ComboBox fx:id="languageComboBox" layoutX="163.0" layoutY="19.0" onAction="#Translate" prefHeight="51.0" prefWidth="200.0" promptText="Select Language" style="-fx-background-color: #5C0099;" stylesheets="@../../../style.css" />
 
-         <Button onAction="#handlePreview" layoutX="23.0" layoutY="24.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Preview" textFill="WHITE">
+         <Button layoutX="14.0" layoutY="24.0" mnemonicParsing="false" onAction="#handlePreview" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Preview" textFill="WHITE">
             <font>
                <Font size="20.0" />
             </font>
          </Button>
-         <Button layoutX="405.0" layoutY="24.0" onAction="#Summerise" mnemonicParsing="false" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Summarise" textFill="WHITE">
+         <Button layoutX="385.0" layoutY="24.0" mnemonicParsing="false" onAction="#Summerise" prefHeight="42.0" prefWidth="127.0" style="-fx-background-color: #3D0066;" styleClass="BtnHome" stylesheets="@../../../style.css" text="Summarise" textFill="WHITE">
             <font>
                <Font size="20.0" />
             </font>
          </Button>
    </Pane>
-   <Label fx:id="fileNameLabel" layoutX="211.0" layoutY="221.0" text="Please Upload a File" textFill="#efefef">
+   <Label fx:id="fileNameLabel" layoutX="216.0" layoutY="229.0" text="Please Upload a File" textFill="#efefef">
       <font>
          <Font size="20.0" />
       </font>
