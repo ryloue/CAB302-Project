@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="FlashcardsContent" prefHeight="412.0" prefWidth="463.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.Flashcards">
+<AnchorPane fx:id="FlashcardsContent" prefHeight="400.0" prefWidth="609.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.Flashcards">
    <children>
-      <Pane layoutX="54.0" layoutY="14.0" prefHeight="72.0" prefWidth="355.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
+      <Pane layoutX="109.0" layoutY="26.0" prefHeight="72.0" prefWidth="355.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;">
          <children>
             <Pane layoutX="11.0" layoutY="10.0" prefHeight="53.0" prefWidth="333.0" style="-fx-background-color: #FFD500; -fx-background-radius: 12;">
                <children>
@@ -23,7 +23,7 @@
             </Pane>
          </children>
       </Pane>
-      <Pane layoutX="60.0" layoutY="165.0" prefHeight="177.0" prefWidth="343.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;">
+      <Pane layoutX="115.0" layoutY="185.0" prefHeight="177.0" prefWidth="343.0" style="-fx-background-color: #5C0099; -fx-background-radius: 12;">
          <children>
             <Button layoutX="118.0" layoutY="145.0" mnemonicParsing="false" onAction="#previousCards" style="-fx-background-color: #FFD500;" text="&lt;--">
                <font>
@@ -69,7 +69,7 @@
             </StackPane>
          </children>
       </Pane>
-      <MenuButton fx:id="notesMenuButton" layoutX="81.0" layoutY="111.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="301.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;" text="Select Saved Notes">
+      <MenuButton fx:id="notesMenuButton" layoutX="140.0" layoutY="125.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="301.0" style="-fx-background-color: #FDC500; -fx-background-radius: 12;" text="Select Saved Notes">
         <items>
 
         </items>
