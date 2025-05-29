@@ -9,12 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="609.0" style="-fx-background-color: #3D0066;" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Dashboard">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="609.0" style="-fx-background-color: #3D0066;" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.Dashboard">
    <children>
       <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is dashboard" />
       <Pane layoutX="23.0" layoutY="98.0" prefHeight="277.0" prefWidth="391.0" style="-fx-background-color: var(--primary); -fx-background-radius: 10;">
          <children>
-            <TextArea fx:id="notesArea" layoutY="19.0" prefHeight="240.0" prefWidth="356.0" style="-fx-background-color: #FDC500;" text="Notes section: add your notes here &#10;1. click add more button to add a notes file&#10;2. double click the note file to change the name&#10;3. enter your notes in the this box &#10;4. click the save button to save your notes" wrapText="true" />
+            <TextArea fx:id="notesArea" layoutX="18.0" layoutY="14.0" prefHeight="240.0" prefWidth="356.0" style="-fx-background-color: #FDC500;" text="Notes section: add your notes here &#10;1. click add more button to add a notes file&#10;2. double click the note file to change the name&#10;3. enter your notes in the this box &#10;4. click the save button to save your notes" wrapText="true" />
             <Button fx:id="GenerateButton" layoutX="94.0" layoutY="264.0" mnemonicParsing="false" onAction="#handleGenerateNotes" prefHeight="25.0" prefWidth="81.0" style="-fx-background-color: #FDC500; -fx-background-radius: 10;" text="Generate">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -32,7 +32,7 @@
          </children>
       </HBox>
       <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" onKeyReleased="#handleSearch" promptText="Search" />
-      <Pane layoutX="172.0" layoutY="14.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FDC500; -fx-background-radius: 5;">
+      <Pane layoutX="189.0" layoutY="14.0" prefHeight="37.0" prefWidth="200.0" style="-fx-background-color: #FDC500; -fx-background-radius: 5;">
          <children>
             <Text fx:id="selectedLabel" layoutX="10.0" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECTED:">
                <font>
@@ -46,7 +46,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <TextArea fx:id="promptText" layoutX="394.0" layoutY="14.0" prefHeight="346.0" prefWidth="167.0" promptText="Enter Prompt for precise Note or Click on Generate" style="-fx-border-radius: 20;" wrapText="true">
+      <TextArea fx:id="promptText" layoutX="427.0" layoutY="14.0" prefHeight="346.0" prefWidth="167.0" promptText="Enter Prompt for precise Note or Click on Generate" style="-fx-border-radius: 20;" wrapText="true">
          <font>
             <Font name="System Italic" size="13.0" />
          </font>
