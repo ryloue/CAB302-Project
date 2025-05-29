@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="425.0" prefWidth="632.0" style="-fx-background-color: #3D0066;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302finalproj.controller.History">
    <children>
-      <Pane layoutX="70.0" layoutY="65.0" prefHeight="295.0" prefWidth="431.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
+      <Pane layoutX="100.0" layoutY="65.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="431.0" style="-fx-background-color: #FFD500; -fx-background-radius: 10;">
          <opaqueInsets>
             <Insets bottom="102.0" top="102.0" />
          </opaqueInsets>
@@ -30,9 +30,9 @@
                         <Insets bottom="102.0" top="102.0" />
                      </opaqueInsets>
                      <children>
-                        <ScrollPane fx:id="scrollLabelPane" prefHeight="180.0" prefWidth="210.0" fitToWidth="true">
+                        <ScrollPane fx:id="scrollLabelPane" fitToWidth="true" prefHeight="180.0" prefWidth="210.0">
                            <content>
-                              <Label fx:id="scrollLabel" alignment="TOP_LEFT" wrapText="true" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308" />
+                              <Label fx:id="scrollLabel" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" />
                            </content>
                         </ScrollPane>
                      </children>
