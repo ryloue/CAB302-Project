@@ -83,7 +83,7 @@ public class Flashcards {
     private void generateFlashcardsFromNote(String notes) {
         new Thread(() -> {
             try {
-                String prompt = "Generate flashcards with maximum 30 words answer from the following note:\n\n" + notes;
+                String prompt = "Generate flashcards with maximum 15 words answer from the following note:\n\n" + notes;
                 String response = API_AI.Call_Ai(prompt);
 
                 // Simple parsing assumption (replace with GSON logic if AI response is JSON structured)

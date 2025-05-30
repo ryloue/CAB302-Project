@@ -10,7 +10,7 @@
 
       <ScrollPane layoutX="11.0" layoutY="12.0" prefHeight="452.0" prefWidth="486.0" style="-fx-background-color:#FFD500;">
             <content>
-                  <TextArea fx:id="previewTextArea" disable="true" editable="false" prefHeight="447.0" prefWidth="478.0" style="-fx-background-color: black;" wrapText="true">
+                  <TextArea fx:id="previewTextArea" editable="false" prefHeight="447.0" prefWidth="478.0" style="-fx-background-color: black;" text="fffffffffffffffffffffffffffffff&#10;" wrapText="true">
             <font>
                <Font name="System Bold" size="13.0" />
             </font></TextArea>

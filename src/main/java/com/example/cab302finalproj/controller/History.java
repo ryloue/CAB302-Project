@@ -21,12 +21,6 @@ public class History implements Initializable {
     private TextField searchField;
 
     @FXML
-    private Button dateButton;
-
-    @FXML
-    private Button subjectButton;
-
-    @FXML
     private VBox recentPromptsContainer;
 
     @FXML

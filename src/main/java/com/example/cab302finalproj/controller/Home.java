@@ -258,6 +258,7 @@ public class Home implements Initializable {
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;
+                PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), File_Content.toString(), translatedText);
 
                 Platform.runLater(() -> {
                     try {
