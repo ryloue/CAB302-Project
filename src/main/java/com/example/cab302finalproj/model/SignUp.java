@@ -74,7 +74,6 @@ SignUp {
                 return;
             }
 
-
             String email = emailField.getText();
             String password = passwordField.getText();
             try {
