@@ -48,24 +48,66 @@ public class Settings {
         }
     }
 
-    private void performNoteReset(){
+    private void performNoteReset() {
         int userId = CurrentUser.getCurrentUserId();
         Connection conn = DatabaseManager.getInstance().getConnection();
-        String sql = "DELETE FROM DashNotes where userId = ?";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, userId);
-            int affectedRows = pstmt.executeUpdate();
+        String deleteDashNotesSql = "DELETE FROM DashNotes WHERE userId = ?";
+        String deleteFlashcardsSql = "DELETE FROM flashcards WHERE fromId = ?";
+        String deletePromptsSql = "DELETE FROM prompts Where user_id = ?";
 
-            if (affectedRows > 0) {
-                System.out.println("Notes Successfully deleted from User ID: " + userId);
-            } else {
-                System.out.println("No notes found to delete from userId: " + userId);
+        try {
+            conn.setAutoCommit(false);
+
+            try (PreparedStatement ps1 = conn.prepareStatement(deleteDashNotesSql)) {
+                ps1.setInt(1, userId);
+                int dashNotesDeleted = ps1.executeUpdate();
+                System.out.println(dashNotesDeleted > 0
+                        ? "Deleted" + dashNotesDeleted + "DashNotes for user" + userId
+                        : "No DashNotes to delete for user" + userId);
             }
-        }catch (SQLException e) {
-            showAlert(Alert.AlertType.ERROR, "Data Error", "Failed to reset notes: " + e.getMessage());
+
+            try (PreparedStatement ps2 = conn.prepareStatement(deleteFlashcardsSql)) {
+                ps2.setInt(1, userId);
+                int flashcardsDeleted = ps2.executeUpdate();
+                System.out.println(flashcardsDeleted > 0
+                        ? "Deleted" + flashcardsDeleted + "flashcards for user" + userId
+                        : "No flashcards to delete for user" + userId);
+            }
+
+            try (PreparedStatement ps3 = conn.prepareStatement(deletePromptsSql)) {
+                ps3.setInt(1, userId);
+                int count3 = ps3.executeUpdate();
+                System.out.println(count3 > 0
+                        ? "Deleted" + count3 + "prompts for user" + userId
+                        : "No prompts to delete for user" + userId);
+            }
+
+            // Commit both deletes together
+            conn.commit();
+            System.out.println("Note reset complete for user" + userId);
+
+        } catch (SQLException e) {
+            // If anything goes wrong, roll back both deletes
+            try {
+                conn.rollback();
+            } catch (SQLException rollbackEx) {
+                System.err.println("Rollback failed: " + rollbackEx.getMessage());
+            }
+            showAlert(Alert.AlertType.ERROR,
+                    "Data Error",
+                    "Failed to reset notes and flashcards: " + e.getMessage());
+        } finally {
+            // restore auto-commit mode for future operations
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                System.err.println("Could not reset auto-commit: " + ex.getMessage());
+            }
         }
     }
+
+
 
     @FXML
     private void showProfileSettings() {
