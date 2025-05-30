@@ -18,17 +18,17 @@ import java.util.Objects;
 public class    HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Initialize database connection
-        DatabaseManager.getInstance();
+            // Initialize database connection
+            DatabaseManager.getInstance();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
 
-        Login loginController = fxmlLoader.getController();
+            Login loginController = fxmlLoader.getController();
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent keyEvent) {
+            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent keyEvent) {
                switch (keyEvent.getCode()){
                    case ENTER:
                        loginController.handleLogin(new ActionEvent());

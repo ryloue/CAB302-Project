@@ -121,6 +121,9 @@ public class History implements Initializable {
             promptButton.setPrefWidth(130);
             promptButton.setStyle("-fx-background-color: #ffd500; -fx-background-radius: 10;");
 
+            Tooltip tooltip = new Tooltip(prompt.getPromptText()); // Use full prompt text
+            promptButton.setTooltip(tooltip);
+
             promptButton.setOnAction(event -> {
                 selectedPrompt = prompt;
                 showPromptDetails(prompt);

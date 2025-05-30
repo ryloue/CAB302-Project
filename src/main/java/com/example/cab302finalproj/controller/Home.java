@@ -70,6 +70,21 @@ public class Home implements Initializable {
         loadLanguages();
     }
 
+    private String getFileName(File file) {
+        if (file == null) {
+            return "Untitled";
+        }
+
+        String fileName = file.getName();
+        int dotIndex = fileName.lastIndexOf(".");
+
+        if (dotIndex > 0) {
+            return fileName.substring(0, dotIndex);
+        }
+
+        return fileName;
+    }
+
     private String getFileExtension(File file) {
         String fileName = file.getName();
         int dotIndex = fileName.lastIndexOf('.');
@@ -258,7 +273,9 @@ public class Home implements Initializable {
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;
-                PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), File_Content.toString(), translatedText);
+
+                String promptName = getFileName(selectedFile);
+                PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), promptName, translatedText);
 
                 Platform.runLater(() -> {
                     try {
@@ -319,7 +336,10 @@ public class Home implements Initializable {
                 Gson gson = new Gson();
                 TranslationResponse result = gson.fromJson(json, TranslationResponse.class);
                 String translatedText = result.response;
-                PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), File_Content.toString(), translatedText);
+
+                String promptName = getFileName(selectedFile);
+                PromptDAO.addPrompt(CurrentUser.getCurrentUserId(), promptName, translatedText);
+
                 Platform.runLater(() -> {
                     try {
                         FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
