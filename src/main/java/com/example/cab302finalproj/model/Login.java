@@ -22,7 +22,6 @@ import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-
 public class Login {
 
     private static final Logger LOGGER = Logger.getLogger(Login.class.getName());
@@ -42,6 +41,9 @@ public class Login {
     @FXML
     private CheckBox showPasswordCB;
 
+    /**
+     * Loads the Forgot Password view by replacing the current content of the login pane.
+     */
     @FXML
     private void handleForgotPassword() {
         try {
@@ -52,20 +54,36 @@ public class Login {
         }
     }
 
+    /**
+     * Initializes the controller after its root element has been completely processed.
+     * Binds the visible password field to the hidden password field to allow toggling visibility.
+     */
     @FXML
-    public void initialize(){
+    public void initialize() {
         passwordVisibleField.textProperty().bindBidirectional(passwordField.textProperty());
         passwordVisibleField.managedProperty().bind(passwordVisibleField.visibleProperty());
         passwordVisibleField.setStyle(passwordField.getStyle());
     }
 
+    /**
+     * Toggles the visibility of the password field based on the state of the showPassword checkbox.
+     *
+     * @param event the ActionEvent triggered when the show password checkbox is clicked
+     */
     @FXML
-    private void handleShowPassword(ActionEvent event){
+    private void handleShowPassword(ActionEvent event) {
         boolean show = showPasswordCB.isSelected();
         passwordVisibleField.setVisible(show);
         passwordField.setVisible(!show);
     }
 
+    /**
+     * Attempts to authenticate the user using the provided email and password.
+     * Shows error alerts for empty fields, invalid credentials, or database errors.
+     * On successful login, loads the main dashboard view.
+     *
+     * @param event the ActionEvent triggered by clicking the login button
+     */
     @FXML
     public void handleLogin(ActionEvent event) {
         try {
@@ -120,6 +138,9 @@ public class Login {
         }
     }
 
+    /**
+     * Loads the Sign Up view by replacing the current content of the login pane.
+     */
     @FXML
     private void GotoSignUp() {
         try {
@@ -130,7 +151,13 @@ public class Login {
         }
     }
 
-
+    /**
+     * Displays a JavaFX alert dialog with the specified type, title, and message.
+     *
+     * @param type    the type of alert (e.g., INFORMATION, ERROR)
+     * @param title   the title of the alert window
+     * @param message the content message to display in the alert
+     */
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -139,6 +166,14 @@ public class Login {
         alert.showAndWait();
     }
 
+    /**
+     * Validates the email and password format before attempting login.
+     * Shows error alerts for empty fields or invalid email format.
+     *
+     * @param email    the user's email address
+     * @param password the user's password
+     * @return true if both email and password are valid; false otherwise
+     */
     public boolean validateLogin(String email, String password) {
         // Check if email or password fields are empty
         if (email.isEmpty() || password.isEmpty()) {

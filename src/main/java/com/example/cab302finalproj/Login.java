@@ -18,6 +18,10 @@ public class Login {
     @FXML
     private AnchorPane LoginContent;
 
+    /**
+     * Opens the default system browser and navigates to the specified URL
+     * when the hyperlink is clicked.
+     */
     @FXML
     private void handleLinkClick() {
         try {
@@ -27,23 +31,29 @@ public class Login {
         }
     }
 
-
-
+    /**
+     * Handles the login action. Assumes authentication has succeeded,
+     * loads the MainLayout.fxml view, and sets it as the current scene.
+     *
+     * @param event the ActionEvent triggered by clicking the login button
+     * @throws IOException if MainLayout.fxml cannot be loaded
+     */
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
-        // Assume login success logic is done here
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MainLayout.fxml"));
         Parent root = loader.load();
 
-        // This gets the current stage from the event
+        // Retrieve the current stage from the event source and set the new scene
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.setTitle("Dashboard");
         stage.show();
     }
 
-
+    /**
+     * Navigates to the SignUp view by replacing the current content of the login pane.
+     * Loads SignUp.fxml and sets it as the children of LoginContent.
+     */
     @FXML
     private void GotoSignUp() {
         try {
@@ -53,8 +63,4 @@ public class Login {
             e.printStackTrace();
         }
     }
-
 }
-
-
-

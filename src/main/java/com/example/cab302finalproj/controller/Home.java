@@ -1,6 +1,5 @@
 package com.example.cab302finalproj.controller;
 
-
 import com.example.cab302finalproj.HelloApplication;
 import com.example.cab302finalproj.Modules.Language;
 import com.example.cab302finalproj.model.API_AI;
@@ -18,7 +17,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.DragEvent;
@@ -55,11 +53,16 @@ public class Home implements Initializable {
     StringBuilder File_Content = new StringBuilder();
     @FXML
     private TextArea previewTextArea;
-
+    @FXML
+    private ComboBox<Language> languageComboBox;
 
     /**
-     * @param url            is for getting the url
-     * @param resourceBundle to allocate the resource bundle
+     * Initializes the controller after its root element has been completely processed.
+     * Sets up the file chooser default directory and extension filters.
+     * Also loads the available languages into the languageComboBox.
+     *
+     * @param url the location used to resolve relative paths for the root object, or null if unknown
+     * @param resourceBundle the resources used to localize the root object, or null if not localized
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -70,6 +73,12 @@ public class Home implements Initializable {
         loadLanguages();
     }
 
+    /**
+     * Returns the file name without its extension. If the file is null, returns "Untitled".
+     *
+     * @param file the file whose name is to be extracted
+     * @return the file name without extension, or "Untitled" if file is null
+     */
     private String getFileName(File file) {
         if (file == null) {
             return "Untitled";
@@ -85,15 +94,27 @@ public class Home implements Initializable {
         return fileName;
     }
 
+    /**
+     * Retrieves the extension of the given file in lowercase.
+     *
+     * @param file the file for which to determine the extension
+     * @return the file extension (without the dot) in lowercase, or an empty string if none
+     */
     private String getFileExtension(File file) {
         String fileName = file.getName();
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex > 0) {
-            return fileName.substring(dotIndex + 1).toLowerCase(); // Return extension in lowercase
+            return fileName.substring(dotIndex + 1).toLowerCase();
         }
-        return ""; // Return empty string if no extension
+        return "";
     }
 
+    /**
+     * Extracts all text content from the specified PDF file and appends it to File_Content.
+     * Uses Apache PDFBox PDFTextStripper for text extraction.
+     *
+     * @param file the PDF file from which text will be extracted
+     */
     public void extractTextFromPDF(File file) {
         PDDocument document = null;
         try {
@@ -121,6 +142,12 @@ public class Home implements Initializable {
         }
     }
 
+    /**
+     * Handles the upload button action. Opens a file chooser dialog, allows the user to select a file,
+     * then reads its contents depending on the file type (PDF or text). Updates fileNameLabel and File_Content.
+     *
+     * @param event the ActionEvent triggered by clicking the upload button
+     */
     @FXML
     public void handleUpload(ActionEvent event) {
         File_Content.setLength(0);
@@ -137,7 +164,6 @@ public class Home implements Initializable {
                 if (extension.equals("pdf")) {
                     System.out.println("pdf called");
                     extractTextFromPDF(file);
-
                 } else if (extension.equals("text")) {
                     while (sc.hasNextLine()) {
                         String line = sc.nextLine();
@@ -146,15 +172,19 @@ public class Home implements Initializable {
                     }
                 }
 
-
                 sc.close();
             } catch (FileNotFoundException e) {
                 fileNameLabel.setText("Error loading file");
-
             }
         }
     }
 
+    /**
+     * Handles drag-over events on the designated drop target. If the dragged content includes files,
+     * accepts the transfer mode as COPY.
+     *
+     * @param event the DragEvent triggered when the user drags files over the drop zone
+     */
     @FXML
     public void dragFile(DragEvent event) {
         File_Content.setLength(0);
@@ -165,6 +195,13 @@ public class Home implements Initializable {
         event.consume();
     }
 
+    /**
+     * Handles drop events when the user releases files onto the drop target.
+     * Retrieves the first file from the dragboard, reads its content line by line into File_Content,
+     * and updates fileNameLabel. Marks the drop operation as completed.
+     *
+     * @param event the DragEvent triggered when the user drops files onto the drop zone
+     */
     @FXML
     public void dropFile(DragEvent event) {
         Dragboard dragboard = event.getDragboard();
@@ -172,14 +209,13 @@ public class Home implements Initializable {
         if (dragboard.hasFiles()) {
             try {
                 // Get the first file (you can loop through all files if needed)
-                File file = dragboard.getFiles().getFirst();
+                File file = dragboard.getFiles().get(0);
                 selectedFile = file;
                 // Update the label with file name
                 fileNameLabel.setText(file.getName());
 
-                // Optional: Read file content
+                // Read file content
                 try (Scanner scanner = new Scanner(file)) {
-
                     while (scanner.hasNextLine()) {
                         String line = scanner.nextLine();
                         File_Content.append(line).append("\n");
@@ -198,33 +234,34 @@ public class Home implements Initializable {
         event.consume();
     }
 
-    @FXML
-    private ComboBox<Language> languageComboBox;
-
-
+    /**
+     * Loads the list of supported languages from a JSON resource (languages.json) and populates the languageComboBox.
+     * Uses Jackson ObjectMapper to deserialize the JSON into a List of Language objects.
+     */
     private void loadLanguages() {
         try {
             ObjectMapper mapper = new ObjectMapper();
             InputStream inputStream = getClass().getResourceAsStream("/languages.json");
-            List<Language> languages = mapper.readValue(inputStream, new TypeReference<List<Language>>() {
-            });
+            List<Language> languages = mapper.readValue(inputStream, new TypeReference<List<Language>>() {});
             languageComboBox.getItems().addAll(languages);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
+    /**
+     * Handles the preview button action. Loads the PreviewFile.fxml layout, sets the current File_Content
+     * into the previewTextArea, and displays it in a new window.
+     *
+     * @param event the ActionEvent triggered by clicking the preview button
+     */
     @FXML
     public void handlePreview(ActionEvent event) {
         try {
-
-
             // Load the FXML using the same controller
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("PreviewFile.fxml"));
             loader.setController(this); // <-- Important to reuse this controller
             Scene scene = new Scene(loader.load());
-
 
             previewTextArea.setText(File_Content.toString());
 
@@ -233,12 +270,14 @@ public class Home implements Initializable {
             previewStage.setTitle("File Preview");
             previewStage.setScene(scene);
             previewStage.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * JavaFX-friendly data structure to hold the AI response for summarization/translation.
+     */
     public static class TranslationResponse {
         public String response;
         public boolean done;
@@ -246,9 +285,10 @@ public class Home implements Initializable {
         // add other fields if needed
     }
 
-
-
-
+    /**
+     * Generates a summary of the current File_Content. Shows a modal loading dialog while the AI call is in progress.
+     * Once the summary is returned, saves it via PromptDAO and displays it in a PreviewFile popup.
+     */
     public void Summerise() {
         Stage loadingStage = new Stage();
         VBox loadingBox = new VBox(10);
@@ -266,8 +306,8 @@ public class Home implements Initializable {
                 String prompt = String.format("""
                         You are a summarization assistant.
                         Summarize the following text :
-                "%s"
-                """,  File_Content);
+                        "%s"
+                        """, File_Content);
 
                 String json = API_AI.Call_Ai(prompt);
                 Gson gson = new Gson();
@@ -284,7 +324,7 @@ public class Home implements Initializable {
 
                         // Get controller from loaded FXML
                         Home controller = loader.getController();
-                        controller.previewTextArea.setText(translatedText);  // Set translated text
+                        controller.previewTextArea.setText(translatedText);  // Set summarized text
 
                         loadingStage.close();
 
@@ -305,11 +345,11 @@ public class Home implements Initializable {
         }).start();
     }
 
-
-
-
-
-
+    /**
+     * Translates the current File_Content into the language selected in languageComboBox.
+     * Displays a modal loading dialog while calling the AI. Once the translation is returned,
+     * saves it via PromptDAO and displays it in a PreviewFile popup.
+     */
     public void Translate() {
         Stage loadingStage = new Stage();
         VBox loadingBox = new VBox(10);
@@ -325,12 +365,12 @@ public class Home implements Initializable {
         new Thread(() -> {
             try {
                 String prompt = String.format("""
-                You are a translation assistant.
-                
-                Translate the following text to %s:
-                
-                "%s"
-                """, languageComboBox.getValue(), File_Content);
+                        You are a translation assistant.
+
+                        Translate the following text to %s:
+
+                        "%s"
+                        """, languageComboBox.getValue(), File_Content);
 
                 String json = API_AI.Call_Ai(prompt);
                 Gson gson = new Gson();
@@ -367,5 +407,4 @@ public class Home implements Initializable {
             }
         }).start();
     }
-
 }

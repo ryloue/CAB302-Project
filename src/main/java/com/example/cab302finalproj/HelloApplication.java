@@ -15,29 +15,36 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class    HelloApplication extends Application {
+public class HelloApplication extends Application {
+
+    /**
+     * Initializes the JavaFX application. Sets up the database connection, loads the login FXML,
+     * registers an ENTER key handler to trigger login, loads a custom font, and handles application
+     * shutdown by closing the database connection.
+     *
+     * @param stage the primary stage supplied by the JavaFX runtime
+     * @throws IOException if the Login.fxml resource cannot be loaded
+     */
     @Override
     public void start(Stage stage) throws IOException {
-            // Initialize database connection
-            DatabaseManager.getInstance();
+        // Initialize database connection
+        DatabaseManager.getInstance();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
 
-            Login loginController = fxmlLoader.getController();
+        Login loginController = fxmlLoader.getController();
 
-            scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent keyEvent) {
-               switch (keyEvent.getCode()){
-                   case ENTER:
-                       loginController.handleLogin(new ActionEvent());
-                       break;
-               }
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent keyEvent) {
+                switch (keyEvent.getCode()) {
+                    case ENTER:
+                        loginController.handleLogin(new ActionEvent());
+                        break;
+                }
             }
         });
-
-
 
         Font.loadFont(getClass().getResourceAsStream("/fonts/MyFont.ttf"), 14);
         stage.setTitle("Hello!");
@@ -51,6 +58,11 @@ public class    HelloApplication extends Application {
         });
     }
 
+    /**
+     * Main entry point when launching the application. Delegates to the JavaFX launch mechanism.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         launch();
     }
