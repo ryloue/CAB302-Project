@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -24,8 +23,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.util.regex.Pattern;
 
-public class
-SignUp {
+public class SignUp {
     public Hyperlink Login_Link;
     public AnchorPane SignUpContent;
 
@@ -48,6 +46,12 @@ SignUp {
             "@qut.edu.au"
     );
 
+    /**
+     * Checks whether the provided email ends with one of the supported domains.
+     *
+     * @param email the email address to validate
+     * @return true if the email ends with a supported domain, false otherwise
+     */
     private boolean isDomainValid(String email) {
         for (String domain : validDomains) {
             if (email.toLowerCase().endsWith(domain)) {
@@ -57,6 +61,10 @@ SignUp {
         return false;
     }
 
+    /**
+     * Navigates back to the login view by replacing the current content of the SignUp pane.
+     * Logs an error if the FXML cannot be loaded.
+     */
     @FXML
     private void GotoLogin() {
         try {
@@ -67,6 +75,13 @@ SignUp {
         }
     }
 
+    /**
+     * Handles the sign-up action. Validates user inputs, attempts to register the user,
+     * automatically logs in upon successful registration, and navigates to the dashboard.
+     * Shows appropriate alerts for validation failures, registration errors, or navigation errors.
+     *
+     * @param event the ActionEvent triggered by clicking the sign-up button
+     */
     @FXML
     private void handleSignUp(ActionEvent event) {
         try {
@@ -121,7 +136,6 @@ SignUp {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/cab302finalproj/MainLayout.fxml"));
             Parent root = loader.load();
 
-
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Dashboard");
@@ -134,8 +148,14 @@ SignUp {
         }
     }
 
+    /**
+     * Validates the user input fields for sign-up. Checks for non-empty fields,
+     * valid email format, supported email domain, minimum password length, and matching passwords.
+     * Shows error alerts for any validation failures.
+     *
+     * @return true if all inputs are valid; false otherwise
+     */
     public boolean validateInputs() {
-
         if (emailField.getText().isEmpty() ||
                 passwordField.getText().isEmpty() ||
                 confirmPasswordField.getText().isEmpty()) {
@@ -144,7 +164,6 @@ SignUp {
                     "All fields are required. Please fill in all fields.");
             return false;
         }
-
 
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         if (!Pattern.matches(emailRegex, emailField.getText())) {
@@ -166,7 +185,6 @@ SignUp {
             return false;
         }
 
-
         if (!passwordField.getText().equals(confirmPasswordField.getText())) {
             showAlert(Alert.AlertType.ERROR, "Validation Error",
                     "Passwords do not match. Please try again.");
@@ -176,6 +194,13 @@ SignUp {
         return true;
     }
 
+    /**
+     * Displays a JavaFX alert dialog with the specified type, title, and message.
+     *
+     * @param type    the type of alert (e.g., INFORMATION, ERROR)
+     * @param title   the title of the alert window
+     * @param message the content message to display in the alert
+     */
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);

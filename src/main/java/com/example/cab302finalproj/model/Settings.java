@@ -23,7 +23,6 @@ import java.util.Optional;
 
 public class Settings {
 
-
     @FXML
     private Pane ProfileSettingsContent;
     @FXML
@@ -31,6 +30,10 @@ public class Settings {
     @FXML
     private TextField passwordField;
 
+    /**
+     * Prompts the user for confirmation and, if confirmed, resets all notes, flashcards,
+     * and prompts for the current user. Shows a success or cancellation alert accordingly.
+     */
     @FXML
     private void resetNotes() {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
@@ -43,18 +46,22 @@ public class Settings {
         if(result.isPresent() && result.get() == ButtonType.OK) {
             performNoteReset();
             showAlert(Alert.AlertType.INFORMATION, "Reset Successful", "Your Notes have been reset");
-        }else{
-            showAlert(Alert.AlertType.INFORMATION, "Cancelled","Note reset was cancelled");
+        } else {
+            showAlert(Alert.AlertType.INFORMATION, "Cancelled", "Note reset was cancelled");
         }
     }
 
+    /**
+     * Deletes all dashboard notes, flashcards, and prompts associated with the current user
+     * in a single transaction. Rolls back if any delete fails and shows an error alert.
+     */
     private void performNoteReset() {
         int userId = CurrentUser.getCurrentUserId();
         Connection conn = DatabaseManager.getInstance().getConnection();
 
         String deleteDashNotesSql = "DELETE FROM DashNotes WHERE userId = ?";
         String deleteFlashcardsSql = "DELETE FROM flashcards WHERE fromId = ?";
-        String deletePromptsSql = "DELETE FROM prompts Where user_id = ?";
+        String deletePromptsSql = "DELETE FROM prompts WHERE user_id = ?";
 
         try {
             conn.setAutoCommit(false);
@@ -63,32 +70,30 @@ public class Settings {
                 ps1.setInt(1, userId);
                 int dashNotesDeleted = ps1.executeUpdate();
                 System.out.println(dashNotesDeleted > 0
-                        ? "Deleted" + dashNotesDeleted + "DashNotes for user" + userId
-                        : "No DashNotes to delete for user" + userId);
+                        ? "Deleted " + dashNotesDeleted + " DashNotes for user " + userId
+                        : "No DashNotes to delete for user " + userId);
             }
 
             try (PreparedStatement ps2 = conn.prepareStatement(deleteFlashcardsSql)) {
                 ps2.setInt(1, userId);
                 int flashcardsDeleted = ps2.executeUpdate();
                 System.out.println(flashcardsDeleted > 0
-                        ? "Deleted" + flashcardsDeleted + "flashcards for user" + userId
-                        : "No flashcards to delete for user" + userId);
+                        ? "Deleted " + flashcardsDeleted + " flashcards for user " + userId
+                        : "No flashcards to delete for user " + userId);
             }
 
             try (PreparedStatement ps3 = conn.prepareStatement(deletePromptsSql)) {
                 ps3.setInt(1, userId);
                 int count3 = ps3.executeUpdate();
                 System.out.println(count3 > 0
-                        ? "Deleted" + count3 + "prompts for user" + userId
-                        : "No prompts to delete for user" + userId);
+                        ? "Deleted " + count3 + " prompts for user " + userId
+                        : "No prompts to delete for user " + userId);
             }
 
-            // Commit both deletes together
             conn.commit();
-            System.out.println("Note reset complete for user" + userId);
+            System.out.println("Note reset complete for user " + userId);
 
         } catch (SQLException e) {
-            // If anything goes wrong, roll back both deletes
             try {
                 conn.rollback();
             } catch (SQLException rollbackEx) {
@@ -98,7 +103,6 @@ public class Settings {
                     "Data Error",
                     "Failed to reset notes and flashcards: " + e.getMessage());
         } finally {
-            // restore auto-commit mode for future operations
             try {
                 conn.setAutoCommit(true);
             } catch (SQLException ex) {
@@ -107,13 +111,14 @@ public class Settings {
         }
     }
 
-
-
+    /**
+     * Displays the profile settings pane, retrieves the current user's email from the database,
+     * and populates the email field and a masked password field.
+     */
     @FXML
     private void showProfileSettings() {
         ProfileSettingsContent.setVisible(true);
 
-        // Retrieve and set user data
         int userId = CurrentUser.getCurrentUserId();
         Connection conn = DatabaseManager.getInstance().getConnection();
         String sql = "SELECT email FROM users WHERE id = ?";
@@ -133,6 +138,13 @@ public class Settings {
         }
     }
 
+    /**
+     * Displays a JavaFX alert dialog with the specified type, title, and message.
+     *
+     * @param type    the type of alert (e.g., INFORMATION, ERROR)
+     * @param title   the title of the alert window
+     * @param message the content message to display in the alert
+     */
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -148,6 +160,12 @@ public class Settings {
             "@qut.edu.au"
     );
 
+    /**
+     * Checks whether the given email ends with one of the supported domains.
+     *
+     * @param email the email address to validate
+     * @return true if the email ends with a supported domain, false otherwise
+     */
     private boolean isDomainValid(String email) {
         for (String domain : validDomains) {
             if (email.toLowerCase().endsWith(domain)) {
@@ -157,9 +175,14 @@ public class Settings {
         return false;
     }
 
+    /**
+     * Saves changes to the current user's profile. Validates email format and domain,
+     * checks for email uniqueness, and conditionally updates only the email or both
+     * email and password in the database. Shows alerts for validation errors or success.
+     */
     @FXML
     private void saveChanges() {
-        String newEmail = emailField.getText().trim().toLowerCase(); // Normalize to lowercase
+        String newEmail = emailField.getText().trim().toLowerCase();
         String newPassword = passwordField.getText().trim();
 
         if (newEmail.isEmpty() || newPassword.isEmpty()) {
@@ -194,7 +217,6 @@ public class Settings {
                 }
             }
 
-            // Update email only
             if (newPassword.isEmpty() || newPassword.matches("\\*+")) {
                 String sqlEmailOnly = "UPDATE users SET email = ? WHERE id = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(sqlEmailOnly)) {
@@ -209,7 +231,6 @@ public class Settings {
                     }
                 }
             } else {
-                // Update email and password
                 String hashedPassword = UserDAO.hashPassword(newPassword);
                 String sqlFull = "UPDATE users SET email = ?, password = ? WHERE id = ?";
 
@@ -226,16 +247,16 @@ public class Settings {
                 }
             }
 
-
         } catch (SQLException | NoSuchAlgorithmException e) {
             showAlert(Alert.AlertType.ERROR, "Database Error", "Failed to update profile: " + e.getMessage());
         }
     }
 
+    /**
+     * Hides the profile settings pane and returns to the previous view.
+     */
     @FXML
     private void goBack() {
         ProfileSettingsContent.setVisible(false);
     }
-
-
 }
