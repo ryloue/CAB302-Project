@@ -23,7 +23,12 @@ public class Dashboard {
     private String previousNotes = null;
     public TextArea promptText;
 
-
+    /**
+     * Creates a button with rename functionality and database persistence.
+     *
+     * @param label the initial text label for the button
+     * @return a configured Button with click and double-click handlers
+     */
     private Button createButtonWithRenameSupport(String label) {
         Button button = new Button(label);
         button.setStyle("-fx-background-color: #FDC500; -fx-background-radius: 10;");
@@ -46,6 +51,11 @@ public class Dashboard {
         return button;
     }
 
+    /**
+     * Saves a new button label to the database for the current user.
+     *
+     * @param label the label text to save
+     */
     private void saveButtonToDatabase(String label) {
         int userId = CurrentUser.getCurrentUserId();
 
@@ -75,6 +85,10 @@ public class Dashboard {
 
     private int buttonCount = 1;
 
+    /**
+     * Handles adding a new note button to the dashboard.
+     * Limited to maximum of 7 buttons.
+     */
     @FXML
     public void handleAddMore() {
         int existingButtons = buttonContainer.getChildren().size() - 1;
@@ -93,6 +107,10 @@ public class Dashboard {
         saveButtonToDatabase(buttonLabel);
     }
 
+    /**
+     * Generates AI-powered notes based on the prompt text input.
+     * Saves previous notes for undo functionality.
+     */
     @FXML
     public void handleGenerateNotes() {
         String input = promptText.getText().trim();
@@ -125,6 +143,9 @@ public class Dashboard {
         }
     }
 
+    /**
+     * Reverts the notes area to the previous content before AI generation.
+     */
     @FXML
     public void handleUndoGenerate() {
         if (previousNotes != null) {
@@ -137,6 +158,12 @@ public class Dashboard {
     }
 
 
+    /**
+     * Enables inline renaming of a button by replacing it temporarily with a TextField.
+     *
+     * @param button the button to rename
+     * @param event the mouse event that triggered the rename
+     */
     private void renameButton(Button button, MouseEvent event) {
         TextField renamer = new TextField(button.getText());
         renamer.setPrefWidth(button.getWidth());
@@ -165,6 +192,12 @@ public class Dashboard {
         renamer.requestFocus();
     }
 
+    /**
+     * Updates a button label in the database.
+     *
+     * @param oldLabel the current label to replace
+     * @param newLabel the new label to set
+     */
     private void updateButtonLabelInDatabase(String oldLabel, String newLabel) {
         int userId = CurrentUser.getCurrentUserId();
 
@@ -180,11 +213,18 @@ public class Dashboard {
         }
     }
 
+    /**
+     * Initializes the dashboard by loading existing user notes from database.
+     */
     @FXML
     public void initialize() {
         loadUserDashNotes();
     }
 
+    /**
+     * Loads all dashboard notes for the current user from the database
+     * and creates corresponding buttons in the UI.
+     */
     private void loadUserDashNotes() {
         int userId = CurrentUser.getCurrentUserId();
 
@@ -210,6 +250,10 @@ public class Dashboard {
 
     private Button currentlySelectedButton = null;
 
+    /**
+     * Deletes the currently selected button and its associated data from
+     * both the UI and database.
+     */
     @FXML
     public void handleDeleteSelected() {
         if (currentlySelectedButton == null) {
@@ -240,6 +284,12 @@ public class Dashboard {
         selectedLabel.setText("SELECTED: ");
     }
 
+    /**
+     * Saves notes content to the database for a specific button.
+     *
+     * @param buttonLabel the label of the button to save notes for
+     * @param notes the notes content to save
+     */
     @FXML
     private void saveNotesToDatabase(String buttonLabel, String notes) {
         int userId = CurrentUser.getCurrentUserId();
@@ -256,6 +306,9 @@ public class Dashboard {
         }
     }
 
+    /**
+     * Saves the current notes content for the selected button.
+     */
     @FXML
     public void handleSaveNotes() {
         String buttonLabel = selectedLabel.getText().replace("SELECTED: ", "");
@@ -268,6 +321,12 @@ public class Dashboard {
         }
     }
 
+    /**
+     * Loads notes content from the database for a specific button.
+     *
+     * @param buttonLabel the label of the button to load notes for
+     * @return the notes content, or empty string if no notes found
+     */
     private String loadNotesFromDatabase(String buttonLabel) {
         int userId = CurrentUser.getCurrentUserId();
 
@@ -288,6 +347,10 @@ public class Dashboard {
         return ""; // Return empty if no notes are found
     }
 
+    /**
+     * Searches for buttons by label text and selects the best match.
+     * Prioritizes startsWith matches over contains matches.
+     */
     @FXML
     private void handleSearch() {
         String query = searchField.getText().toLowerCase();

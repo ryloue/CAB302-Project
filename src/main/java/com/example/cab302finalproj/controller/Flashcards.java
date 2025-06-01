@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Controller class for managing flashcard functionality in the application.
+ * This class handles the creation, display, and navigation of AI-generated flashcards
+ * based on user notes stored in the database.*/
 public class Flashcards {
     public static MainLayout mainLayout;
     @FXML
@@ -44,6 +47,10 @@ public class Flashcards {
     @FXML
     private MenuButton notesMenuButton; // Add fx:id in FXML for this
 
+    /**
+     * Initialises the controller after the FXML file has been loaded.
+     * Sets up the notes menu by populating it with available user notes from the database.
+     */
     public void initialize() {
         try {
             populateNotesMenu();
@@ -51,6 +58,13 @@ public class Flashcards {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Populates the notes menu button with menu items for each note belonging to the current user.
+     * Each menu item, when clicked, will generate flashcards from the corresponding note content.
+     *
+     * @throws SQLException if there is an error accessing the database or executing the query
+     */
     @FXML
     private void populateNotesMenu() throws SQLException {
         int userId = CurrentUser.getCurrentUserId();
@@ -79,7 +93,15 @@ public class Flashcards {
         }
     }
 
-
+    /**
+     * Generates flashcards from the provided note content using AI processing.
+     * This method runs the AI call on a separate thread to avoid blocking the UI,
+     * then updates the flashcard display on the JavaFX Application Thread.
+     *
+     * <p>The AI is instructed to generate flashcards with answers limited to 15 words maximum.
+     *
+     * @param notes the note content to generate flashcards from
+     */
     private void generateFlashcardsFromNote(String notes) {
         new Thread(() -> {
             try {
@@ -97,7 +119,13 @@ public class Flashcards {
         }).start();
     }
 
-
+    /**
+     * Updates the flashcard user interface with the AI-generated response.
+     * Parses the JSON response from the AI, extracts flashcard content,
+     * and initializes the flashcard display with the first card.
+     *
+     * @param aiResponse the JSON response from the AI containing generated flashcards
+     */
     private void updateFlashcardUI(String aiResponse) {
         // Parse the JSON
         Gson gson = new Gson();
@@ -110,6 +138,13 @@ public class Flashcards {
 
         showFlashcard(currentIndex);
     }
+
+    /**
+     * Displays the flashcard at the specified index.
+     * Parses the flashcard content to separate the question (front) and answer (back),
+     * then updates the UI components accordingly.
+     * @param index the index of the flashcard to display
+     */
     private void showFlashcard(int index) {
         if (flashcards.isEmpty() || index < 0 || index >= flashcards.size()) return;
 
@@ -134,6 +169,10 @@ public class Flashcards {
         backCard.setVisible(false);
     }
 
+    /**
+     * Navigates to the next flashcard in the sequence.
+     * If the current card is the last one, this method has no effect.
+     */
     @FXML
     private void nextCard() {
         if (currentIndex < flashcards.size() - 1) {
@@ -142,6 +181,10 @@ public class Flashcards {
         }
     }
 
+    /**
+     * Navigates to the previous flashcard in the sequence.
+     * If the current card is the first one, this method has no effect.
+     */
     @FXML
     private void previousCards() {
         if (currentIndex > 0) {
@@ -149,7 +192,6 @@ public class Flashcards {
             showFlashcard(currentIndex);
         }
     }
-
 
     public void selectNote() throws SQLException {
         int userId = CurrentUser.getCurrentUserId();
@@ -168,6 +210,11 @@ public class Flashcards {
         }
 
     }
+
+    /**
+     * Animates the flipping of flashcards between front and back sides.
+     * Creates a smooth scale transition effect that simulates a card flip animation.
+     */
     public void flipFlashCards(){
         backCard.setVisible(!frontCard.isVisible());
         if (frontCard.isVisible()){

@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Main layout controller that manages page navigation and content loading.
+ * Serves as the primary container for the application's pages.
+ */
 public class MainLayout {
 
     @FXML
@@ -24,6 +28,13 @@ public class MainLayout {
         loadPage("Home.fxml");
     }
 
+    /**
+     * Loads a specified FXML page into the content area.
+     * Handles special initialization for certain pages like History.
+     *
+     * @param page the FXML filename to load (e.g., "Home.fxml"), or null to clear content
+     * @throws RuntimeException if a SQL exception occurs during database operations
+     */
     public void loadPage(String page) {
         try {
             if (page == null) {

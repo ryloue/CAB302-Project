@@ -14,6 +14,10 @@ class Navigator {
     public static MainLayout mainLayout;
 }
 
+/**
+ * Sidebar controller that handles navigation between different application pages.
+ * Provides click handlers for all navigation menu items and logout functionality.
+ */
 public class Sidebar {
 
     private static final Logger LOGGER = Logger.getLogger(Sidebar.class.getName());
@@ -43,6 +47,11 @@ public class Sidebar {
         Navigator.mainLayout.loadPage("Settings.fxml");
     }
 
+    /**
+     * Handles the logout process by clearing the current content and redirecting to login page.
+     * Replaces the current scene with the login screen and updates the window title.
+     * Logs any errors that occur during the logout process.
+     */
     @FXML
     private void handleLogoutClick() {
         try {

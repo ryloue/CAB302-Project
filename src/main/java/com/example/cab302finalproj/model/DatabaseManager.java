@@ -2,7 +2,11 @@ package com.example.cab302finalproj.model;
 
 import java.sql.*;
 
-
+/**
+ * A database manager class that handles SQLite database connections
+ * and table initialisation for the application. This class manages user data,
+ * flashcards, dashboard notes and history.
+ */
 public class DatabaseManager {
     // Database URL
     private static final String DB_URL = "jdbc:sqlite:userdb.sqlite";
@@ -13,7 +17,11 @@ public class DatabaseManager {
     // Connection object
     private Connection connection;
 
-
+    /**
+     * Private constructor that initialises the database connection and creates
+     * necessary tables.
+     *
+     * @implNote Uses SQLite database located at "userdb.sqlite". */
     private DatabaseManager() {
         try {
             connection = DriverManager.getConnection(DB_URL);
@@ -27,7 +35,18 @@ public class DatabaseManager {
         }
     }
 
-
+    /**
+     * Returns the instance of DatabaseManager. If the instance doesn't exist,
+     * it creates a new one. If the existing connection is closed, it reestablishes
+     * the connection.
+     *
+     * @return the DatabaseManager instance
+     * @throws RuntimeException if there's an error checking or reestablishing the connection
+     *
+     * @apiNote This method is thread-safe due to the synchronized keyword
+     * @apiNote The method automatically handles connection recovery if the database
+     *          connection has been closed
+     */
     public static synchronized DatabaseManager getInstance() {
         if (instance == null) {
             instance = new DatabaseManager();
@@ -45,7 +64,15 @@ public class DatabaseManager {
         return instance;
     }
 
-
+    /**
+     * Initialises the database by creating all necessary tables if they don't exist.
+     * This method creates the users, flashcards, and DashNotes tables with proper
+     * foreign key relationships.
+     *
+     * @throws SQLException if there's an error creating any of the tables
+     *
+     * @implNote Calls verifyDashNotesTable() to ensure table schema integrity
+     */
     private void initializeDatabase() throws SQLException {
         // Create users table
         String createUsersTable =
@@ -88,6 +115,14 @@ public class DatabaseManager {
     }
 
 
+    /**
+     * Returns the current database connection, creating a new one if the existing
+     * connection is null or closed. This method ensures that a valid connection
+     * is always available for database operations.
+     *
+     * @return a valid Connection object to the SQLite database
+     * @throws RuntimeException if there's an error establishing the database connection
+     */
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
@@ -102,7 +137,11 @@ public class DatabaseManager {
         return connection;
     }
 
-
+    /**
+     * Closes the database connection if it's currently open. This method is
+     * called when shutting down the application to properly release database
+     * resources.
+     */
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {
@@ -115,6 +154,12 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Drops the DashNotes table from the database. This is a utility method
+     * used internally for table schema management and migration.
+     *
+     * @throws SQLException if there's an error executing the DROP TABLE statement
+     */
     private void dropDashNotesTable() throws SQLException {
         String dropSQL = "DROP TABLE IF EXISTS DashNotes";
         try (Statement stmt = connection.createStatement()) {
@@ -123,6 +168,14 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * Verifies that the DashNotes table has the correct schema, particularly
+     * checking for the existence of the 'notes' column. If the column is missing,
+     * the method drops and recreates the table with the correct schema.
+     *
+     * @throws SQLException if there's an error checking the table schema or
+     *                      recreating the table
+     */
     private void verifyDashNotesTable() throws SQLException {
         boolean notesColumnExists = false;
 
